@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Exploring Fake News through LIAR dataset"
+author: "Andrew Schaefer, Angad Nandwani and Ayush Sinha "
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
