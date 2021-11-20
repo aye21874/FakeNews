@@ -277,7 +277,7 @@ Row-Wise Patterns
 
 * Note, we imported this package from github - https://github.com/heike/extracat#installation
 
-```{r fig.width=18, fig.height=15}
+```{r fig.width=20, fig.height=13}
 plt.prop(df_test, percent = TRUE)
 ```
 
