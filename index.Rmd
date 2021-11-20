@@ -7,3 +7,14 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+Project:-
+-------------
+The three questions out of this dataset which we are interested in pursuing are:
+
+1) Do high positions of authority lead to misleading information?
+
+2) Which method of communication or social media platforms are most prone to misinformation?
+
+3) The state’s with maximum proportions of fake news and in what subject? Which subject has the most concentrated fake news?
+
+Overall, through visualization, we wanted to find out the most reliable method of receiving correct information, which platforms we can pay attention to for controversial topics, and the suspicious figures we should avoid for getting the correct information.
