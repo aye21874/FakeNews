@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 4 Missing values | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 4 Missing values | Exploring Fake News through LIAR dataset</title>
+  <meta name="description" content="Chapter 4 Missing values | Exploring Fake News through LIAR dataset" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 4 Missing values | Exploring Fake News through LIAR dataset" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | Exploring Fake News through LIAR dataset" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Andrew Schaefer, Angad Nandwani and Ayush Sinha" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="data-transformation.html"/>
 <link rel="next" href="results.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +51,9 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -68,7 +70,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">FakeNews</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
@@ -89,7 +91,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Fake News through LIAR dataset</a>
           </h1>
         </div>
 
@@ -99,6 +101,124 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<p><strong>Missing values by column for the test liar dataset</strong></p>
+<pre><code>##     Speaker Job Title            State Info        Venue/Location 
+##                   266                   206                    13 
+##                    ID                 Label             Statement 
+##                     0                     0                     0 
+##            Subject(s)               Speaker The Party Affiliation 
+##                     0                     0                     0 
+##    Barely True Counts          False Counts      Half True Counts 
+##                     0                     0                     0 
+##    Mostly True Counts  Pants on Fire Counts 
+##                     0                     0</code></pre>
+<ul>
+<li>It is important to note that Label column (independent feature) doesn’t have missing values for the test dataset.</li>
+<li>Most of the columns don’t have missing values</li>
+<li>Speaker Job Title has maximum missing values - 266</li>
+</ul>
+<p><strong>Top 20 row-id having maximum missing values</strong></p>
+<pre><code>## 279 539 708  12  23  24  27  33  41  43  50  51  71  73  81  90 101 106 113 114 
+##   3   3   3   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2</code></pre>
+<ul>
+<li>Here we observe that the maximum values missing per row was 3. Row_id 279 here has 3 features which has missing values</li>
+<li>Please note, we handpicked top 20 rows</li>
+</ul>
+<p><strong>Heatmap </strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
+<ul>
+<li>Since we noticed that “Speaker Job Title” and “State Info” has missing values, we used heatmaps to see if we can observe any pattern. Below is one of the following pattern we noticed :-
+<ol style="list-style-type: decimal">
+<li>For both “Speaker Job Title” and “State Info” feature, we saw following labels {True, Pants-Fire and False} to be completely missing.</li>
+</ol></li>
+</ul>
+<p>This means that if we group StateInfo &amp; Label and Speaker Job Title &amp; Label, then the groups having TRUE, PANTS-FIRE and FALSE Labels will be completely empty.</p>
+<p><strong>Ratio of Missing Values for each Label in Test dataset </strong></p>
+<pre><code>## # A tibble: 6 × 2
+##   Label       `Speaker Job Title`
+##   &lt;chr&gt;                     &lt;dbl&gt;
+## 1 barely-true               0.266
+## 2 false                     0.251
+## 3 half-true                 0.229
+## 4 mostly-true               0.224
+## 5 pants-fire                0.407
+## 6 true                      0.233</code></pre>
+<p><strong>Percentage of Missing Values for each Label in Test dataset </strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+* This graph ideally would have missed a feature if all the values were missing for it, but here for our dataset, we didn’t observe any feature for which all rows in the column were missing.
+* In this graph, Speaker Job Title and State Info was quite evident, but at the same time, this graph also tells us that there were few values missing for the Venue/Location.</p>
+<pre><code>## [1] &quot;nothing&quot;                                      
+## [2] &quot;Speaker.Job.Title&quot;                            
+## [3] &quot;State.Info&quot;                                   
+## [4] &quot;Venue.Location&quot;                               
+## [5] &quot;Speaker.Job.Title, State.Info&quot;                
+## [6] &quot;Speaker.Job.Title, Venue.Location&quot;            
+## [7] &quot;Speaker.Job.Title, State.Info, Venue.Location&quot;</code></pre>
+<ul>
+<li>We notice the following pattern :-</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>The maximum rows in dataset have none of the features missing.</li>
+<li>Next, we have a pattern for rows having Speaker Job Title and State Info missing</li>
+<li>Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.</li>
+</ol>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<ul>
+<li>Following are the patterns observed :-
+Column-Wise</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Missing Value Order :- Speaker Job Title &gt; State Info &gt; Venue/Location</li>
+</ol>
+<p>Row-Wise Patterns
+1) The maximum rows in dataset have none of the features missing.
+2) Next, we have a pattern for rows having Speaker Job Title and State Info missing
+3) Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.</p>
+<ul>
+<li>Note, we imported this package from github - <a href="https://github.com/heike/extracat#installation" class="uri">https://github.com/heike/extracat#installation</a></li>
+</ul>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="1920" />
+* This is missing value plot for our dataset similar to the question2
+* The first plot on the top shows % of missing value for each feature
+* The second plot on the bottom (both left and right) and rigth) shows various pattern
+–&gt; Most of the rows in the dataset has no missing values
+–&gt; Next, we have a pattern for rows having Speaker Job Title and State Info missing
+–&gt; Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.</p>
+<p><strong>Ratio of Missing Values for each “The Party Affiliation” in Test dataset </strong></p>
+<pre><code>## # A tibble: 16 × 3
+##    `The Party Affiliation` `Speaker Job Title` `State Info`
+##    &lt;chr&gt;                                 &lt;dbl&gt;        &lt;dbl&gt;
+##  1 activist                              0           0     
+##  2 business-leader                       0           0     
+##  3 columnist                             0.167       0.167 
+##  4 constitution-party                    0           0     
+##  5 county-commissioner                   0           0     
+##  6 democrat                              0.173       0.0896
+##  7 government-body                       1           0     
+##  8 independent                           0.167       0.0833
+##  9 journalist                            0.125       0.375 
+## 10 libertarian                           0.2         0.4   
+## 11 newsmaker                             1           0     
+## 12 none                                  0.545       0.693 
+## 13 organization                          0.895       0.474 
+## 14 republican                            0.184       0.0772
+## 15 state-official                        0           0     
+## 16 talk-show-host                        0           0.333</code></pre>
+<p><strong>Percentage of Missing Values for each Label in Test dataset </strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><strong>Heatmap </strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="768" />
+** Here we took another feature “The Party Affiliation” and using heatmap, tried noticing missing patterns for this feature.
+** The Speaker Job Title had completely missing values for the following “The Party Affiliation” feature[“Organization, none, newsmaker, journalist, government-body and democrat”]
+** The State Info was completly missing for the following “The Party Affiliation” feature [“none”, “journalist” and “democrat”]</p>
+<p><strong>Number of Missing Values of Speaker Job Title by State_Info grouped by Label</strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="768" /></p>
+<ul>
+<li>For most of the states, the label half-true and true have zero missing values</li>
+<li>Florida State has maximum missing values for the label missing true.</li>
+<li>Here we also had missing values in state, which we categorized has Unknown, which apparently together also has max missing values</li>
+</ul>
 
 </div>
             </section>
@@ -111,7 +231,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -130,6 +249,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -138,7 +258,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/04-missing.Rmd",
+"link": "https://github.com/aye21874/FakeNews/edit/main/04-missing.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,10 +266,14 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/04-missing.Rmd",
+"link": "https://github.com/aye21874/FakeNews/blob/main/04-missing.Rmd",
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
