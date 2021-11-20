@@ -244,7 +244,9 @@ x <- missing_data.frame(datasetdf)
 ```{r}
 image(x)
 ```
+
 * This graph ideally would have missed a feature if all the values were missing for it, but here for our dataset, we didn't observe any feature for which all rows in the column were missing.
+
 * In this graph, Speaker Job Title and State Info was quite evident, but at the same time, this graph also tells us that there were few values missing for the Venue/Location.
 
 
@@ -275,11 +277,14 @@ Row-Wise Patterns
 
 * Note, we imported this package from github - https://github.com/heike/extracat#installation
 
-```{r fig.width = 20, fig.height=13}
+```{r fig.width=18, fig.height=15}
 plt.prop(df_test, percent = TRUE)
 ```
+
 * This is missing value plot for our dataset similar to the question2 
+
 * The first plot on the top shows % of missing value for each feature
+
 * The second plot on the bottom (both left and right)  and rigth) shows various pattern 
   -->  Most of the rows in the dataset has no missing values
   -->  Next, we have a pattern for rows having Speaker Job Title and State Info missing
@@ -326,8 +331,11 @@ ggplot(df_pivot, aes(y = key, x = fct_rev(`The Party Affiliation`), fill = missi
        x = "The Party Affiliation", y="Features") +
   theme(axis.text.x=element_text(angle=90))
 ```
+
 ** Here we took another feature "The Party Affiliation" and using heatmap, tried noticing missing patterns for this feature. 
+
 ** The Speaker Job Title had completely missing values for the following "The Party Affiliation" feature["Organization, none, newsmaker, journalist, government-body and democrat"]
+
 ** The State Info was completly missing for the following "The Party Affiliation" feature ["none", "journalist" and "democrat"]
 
 
@@ -347,10 +355,14 @@ df_test1$`State Info` = replace_na(df_test1$`State Info`,"Unknown")
 ggplot(df_test1, aes(x = df_test1$`Speaker Job Title`, 
                         y = df_test1$`State Info`,
                         color=Label,
-                      )) + geom_point()
+                      )) + geom_point() + 
+  xlab("Speaker Job Title") + ylab("State Info")
 
 ```
 
+
 * For most of the states, the label half-true and true have zero missing values
+
 * Florida State has maximum missing values for the label missing true. 
+
 * Here we also had missing values in state, which we categorized has Unknown, which apparently together also has max missing values
