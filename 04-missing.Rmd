@@ -1,1 +1,347 @@
 # Missing values
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+library(mi)
+library(extracat)
+library(dplyr)
+```
+
+
+```{r}
+plt.prop <- function(df, percent=FALSE, shorten=FALSE) {
+  
+  # initializing variables depending on percentage or count
+  alph <- 0.4
+  p1_left <- 'num'
+  p2_bot <- 'row count'
+  limit <- NULL
+  
+  if(percent){
+    p1_left <- '%'
+    p2_bot <- '% rows'
+    limit <- c(0,100)
+  }
+  sh <- waiver()
+  if(shorten){
+    sh <- abbreviate
+  }
+
+  # gets null proportion per column
+  hor.index <- function(df) {
+    v <- c()
+    for (i in head(names(df), -1)) {
+      if(percent){
+        frac <- 100*sum(df$count[c(df[,i]==TRUE)])/sum(df$count)
+      } else {
+        frac <- sum(df$count[c(df[,i]==TRUE)])
+      }
+      v <- c(v, frac)
+    }
+    data <- data.frame(
+      name = head(names(df), -1),
+      value = v
+    )
+    return(data)
+  }
+  
+  # organizes dataframe by null pattern, and uses the null porportion to reorder columns
+  null.graph <- function(df) {
+    ms <- data.frame(is.na(df)) %>%
+    group_by_all() %>%
+    count(name = "count", sort = TRUE) %>%
+    ungroup()
+    
+    ct <- ms$count
+    ind <- hor.index(ms)$value
+    ms <- ms[, order(ind, decreasing = TRUE)]
+    ms$count = ct
+    return(ms)
+  }
+  
+  g <- null.graph(df)
+  ind <- hor.index(g)
+  
+  
+  # top side plot
+  p1 <- ggplot(data = ind, aes(x = reorder(name, desc(value)), y = value)) + 
+    geom_bar(color='white', stat = 'identity', alpha = alph) +
+    ggtitle('Missing value patterns') +
+    ylab(paste(p1_left, 'rows missing:')) +
+    xlab('') +
+    scale_y_continuous(expand = c(0,0), limits = limit, n.breaks = 5) +
+    scale_x_discrete(labels = sh) +
+    theme(legend.position = 'none')
+  
+  if(percent){
+    g$count <- 100*g$count/sum(g$count)
+  }
+
+  
+  # make pl dataframe for the main plot
+  g$row=as.numeric(row.names(g))
+  pl <- pivot_longer(data = g, 
+               cols = -c(count, row),
+               names_to = "name",
+               values_to = "vals")
+  pl <- merge(pl, ind)
+  
+  
+  # make fill values for alpha
+  g2 <- g[1:(length(g)-2)]
+  empty <- c()
+  for (row in 1:nrow(g2)) {
+    empty <- c(empty, sum(g2[row,]))
+  }
+  fill <- data.frame(
+    row = c(1:nrow(g2)),
+    fill = empty
+  )
+  
+  
+  # merge fill values to pl, and add fill column to g
+  pl <- merge(pl, fill)
+  g$fill <- fill$fill
+  
+  # if there are no missing columns
+  if(sum(g$fill)==0){
+    alph = 1
+  }
+  
+  # right side plot
+  p2 <- ggplot(data = g, aes(x = reorder(as.numeric(row.names(g)), desc(as.numeric(row.names(g)))), y = count, alpha = fill == 0)) + 
+    geom_bar(color='white', stat = 'identity') +
+    ylab(p2_bot) +
+    xlab('') +
+    scale_y_continuous(expand = c(0,0), limits = limit, n.breaks = 5) +
+    scale_alpha_manual(values = c(alph, 1)) +
+    coord_flip() +
+    theme(legend.position = 'none')
+  
+  
+  # main plot
+  p3 <- ggplot(data = pl, aes(x = reorder(name, desc(value)), y = reorder(row, desc(row)), fill = vals, alpha = fill == 0)) +
+  geom_tile(color = 'white') +
+  scale_alpha_manual(values = c(alph, 1)) +
+  annotate('text', x = length(x = unique(pl$name))/2 + 0.5, y = tail(pl$row,1) - pl[pl$fill == 0,]$row[1] + 1, label = 'Complete Cases') +
+  scale_x_discrete(labels = sh) +
+  theme(legend.position = 'none') +
+  xlab('variable') +
+  ylab('missing pattern')
+  
+  
+  # combine plots with patchwork
+  pp <- p1 + plot_spacer() + p3 + p2 +
+    plot_layout(widths = c(5,1), heights = c(1,4))
+  
+  return(pp)
+}
+```
+
+
+```{r}
+df_test = read_tsv(file = 'test.tsv' )
+```
+
+
+```{r}
+t = c("ID","Label","Statement","Subject(s)","Speaker","Speaker Job Title","State Info","The Party Affiliation","Barely True Counts","False Counts","Half True Counts","Mostly True Counts","Pants on Fire Counts","Venue/Location")
+colnames(df_test)<- as.vector(t)
+```
+
+
+**Missing values by column for the test liar dataset**
+
+```{r}
+colSums(is.na(df_test)) %>%
+  sort(decreasing = TRUE)
+```
+
+* It is important to note that Label column (independent feature) doesn't have missing values for the test dataset. 
+* Most of the columns don't have missing values
+* Speaker Job Title has maximum missing values - 266
+
+
+**Top 20 row-id having maximum missing values**
+
+```{r}
+temp_df = df_test
+row.names(temp_df) <- 1 : 1051
+t = rowSums(is.na(temp_df)) %>%
+  sort(decreasing = TRUE)
+
+head(t,20)
+```
+
+
+* Here we observe that the maximum values missing per row was 3. Row_id 279 here has 3 features which has missing values
+* Please note, we handpicked top 20 rows
+
+
+**Heatmap **
+
+```{r}
+df_pivot <- df_test %>%
+    gather(key, value, -Label) %>% 
+    mutate(missing = ifelse(is.na(value), "yes", "no"))
+```
+
+```{r fig.width=8}
+ggplot(df_pivot, aes(y = key, x =  fct_rev(Label), fill = missing)) +
+  geom_tile(color = "white") + 
+  labs(title = "Missing Values for Features Faceted by Label",
+       x = "Label", y="Features")
+```
+
+* Since we noticed that "Speaker Job Title" and "State Info" has missing values, we used heatmaps to see if we can observe any pattern. Below is one of the following pattern we noticed :-
+  1) For both "Speaker Job Title" and "State Info" feature, we saw following labels {True, Pants-Fire and False} to be completely missing. 
+
+This means that if we group StateInfo & Label and Speaker Job Title & Label, then the groups having TRUE, PANTS-FIRE and FALSE Labels will be completely empty. 
+
+
+**Ratio of Missing Values for each Label in Test dataset **
+
+```{r}
+features = c("Label", "Speaker Job Title")
+df_new = df_test[features]
+
+df_new  = df_test %>%
+group_by(Label) %>%
+summarise_each(funs(sum(is.na(.))/length(.)))
+
+print(df_new[features])
+```
+**Percentage of Missing Values for each Label in Test dataset **
+
+```{r}
+
+df_new1 = df_new[order(df_new$`Speaker Job Title`, decreasing=TRUE),]
+
+barplot(df_new1$`Speaker Job Title`*100 , 
+        names.arg = df_new1$Label,
+        xlab = "Label",
+        ylab = "Percentage",
+        main ="Percentage of missing values with respect to Label")
+```
+
+```{r}
+datasetdf <- as.data.frame(df_test)
+x <- missing_data.frame(datasetdf)
+```
+
+
+```{r}
+image(x)
+```
+* This graph ideally would have missed a feature if all the values were missing for it, but here for our dataset, we didn't observe any feature for which all rows in the column were missing.
+* In this graph, Speaker Job Title and State Info was quite evident, but at the same time, this graph also tells us that there were few values missing for the Venue/Location.
+
+
+```{r}
+levels(x@patterns)
+
+```
+
+
+* We notice the following pattern :-
+1) The maximum rows in dataset have none of the features missing. 
+2) Next, we have a pattern for rows having Speaker Job Title and State Info missing
+3) Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.
+
+
+```{r}
+visna(df_test, sort = "b")
+```
+
+* Following are the patterns observed :-
+Column-Wise
+1) Missing Value Order :- Speaker Job Title > State Info > Venue/Location
+
+Row-Wise Patterns
+1) The maximum rows in dataset have none of the features missing. 
+2) Next, we have a pattern for rows having Speaker Job Title and State Info missing
+3) Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.
+
+* Note, we imported this package from github - https://github.com/heike/extracat#installation
+
+```{r fig.width = 20, fig.height=13}
+plt.prop(df_test, percent = TRUE)
+```
+* This is missing value plot for our dataset similar to the question2 
+* The first plot on the top shows % of missing value for each feature
+* The second plot on the bottom (both left and right)  and rigth) shows various pattern 
+  -->  Most of the rows in the dataset has no missing values
+  -->  Next, we have a pattern for rows having Speaker Job Title and State Info missing
+  -->  Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.
+  
+
+**Ratio of Missing Values for each "The Party Affiliation" in Test dataset **
+
+```{r}
+features = c("The Party Affiliation", "Speaker Job Title","State Info")
+df_new  = df_test %>%
+group_by(`The Party Affiliation`) %>%
+summarise_each(funs(sum(is.na(.))/length(.)))
+
+print(df_new[features])
+```
+
+
+**Percentage of Missing Values for each Label in Test dataset **
+
+```{r}
+
+df_new1 = df_new[order(df_new$`Speaker Job Title`, decreasing=TRUE),]
+
+barplot(df_new1$`Speaker Job Title`*100 , 
+        names.arg = df_new1$`The Party Affiliation`,
+        xlab = "The Party Affiliation",
+        ylab = "Percentage",
+        main ="Percentage of missing values with respect to Label") 
+```
+
+**Heatmap **
+
+```{r}
+df_pivot <- df_test %>%
+    gather(key, value, -"The Party Affiliation") %>% 
+    mutate(missing = ifelse(is.na(value), "yes", "no"))
+```
+
+```{r fig.width=8}
+ggplot(df_pivot, aes(y = key, x = fct_rev(`The Party Affiliation`), fill = missing)) +
+  geom_tile(color = "white") + 
+  labs(title = "Missing Values for Features Faceted by The Party Affiliation",
+       x = "The Party Affiliation", y="Features") +
+  theme(axis.text.x=element_text(angle=90))
+```
+** Here we took another feature "The Party Affiliation" and using heatmap, tried noticing missing patterns for this feature. 
+** The Speaker Job Title had completely missing values for the following "The Party Affiliation" feature["Organization, none, newsmaker, journalist, government-body and democrat"]
+** The State Info was completly missing for the following "The Party Affiliation" feature ["none", "journalist" and "democrat"]
+
+
+**Number of Missing Values of Speaker Job Title by State_Info grouped by Label**
+
+```{r fig.width=8}
+#features = c("State Info","Label")
+#df_new = df[features]
+
+df_test1 <- df_test %>% 
+  group_by(`State Info`,Label) %>% 
+  summarise_each(funs(sum(is.na(.))))
+
+
+df_test1$`State Info` = replace_na(df_test1$`State Info`,"Unknown")
+
+ggplot(df_test1, aes(x = df_test1$`Speaker Job Title`, 
+                        y = df_test1$`State Info`,
+                        color=Label,
+                      )) + geom_point()
+
+```
+
+* For most of the states, the label half-true and true have zero missing values
+* Florida State has maximum missing values for the label missing true. 
+* Here we also had missing values in state, which we categorized has Unknown, which apparently together also has max missing values
