@@ -303,7 +303,7 @@ print(df_new[features])
 ```
 
 
-**Percentage of Missing Values for each Label in Test dataset **
+**Percentage of Missing Values for each Party Affiliation in Test dataset **
 
 ```{r}
 
