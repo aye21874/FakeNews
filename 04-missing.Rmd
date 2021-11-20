@@ -313,7 +313,7 @@ barplot(df_new1$`Speaker Job Title`*100 ,
         names.arg = df_new1$`The Party Affiliation`,
         xlab = "The Party Affiliation",
         ylab = "Percentage",
-        main ="Percentage of missing values with respect to Label") 
+        main ="Percentage of missing values with respect to The Party Affiliation") 
 ```
 
 **Heatmap **
