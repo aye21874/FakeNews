@@ -1,5 +1,14 @@
 # Missing values
 
+**Dataset:-**
+
+Liar dataset is used for the fake news detection having 12,800 human labelled short statements in various contexts related to politics. The dataset is used as a fact-checking research and each statement is evaluated by the politifact.com editor for its truthfulness. Automatic fake news detection is a challenging problem in deception detection, and it has tremendous potential on real-world political and social impacts.
+
+**List of Features in Table**
+
+ID | Label  | Statement  | Subject | Speaker | Speaker Job Title | State Info | Party Affiliated |  Total Credit History Count |  Barely True Counts | False Counts | Half False Counts | Mostly True Counts | Fire Counts | Location/Venue
+
+
 ```{r}
 library(tidyverse)
 library(patchwork)
