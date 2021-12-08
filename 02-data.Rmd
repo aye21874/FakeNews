@@ -1,9 +1,16 @@
 # Data sources
 
+
 In the beginning of the semester, we participated in the columbia data science hackathon event,
 where we got this LIAR dataset. The dataset intrigued us to find answers to the questions
 pointed above
+
 1) Columbia Data Science Hackathon Page ‘ 2021 - https://cdssatcu.com/2021-data-science-hackathon
+
 2) Motivation behind the dataset - https://arxiv.org/abs/1705.00648
+
 3) Actual Dataset - https://www.cs.ucsb.edu/~william/data/liar_dataset.zip
+
 4) Dataset Evaluation by Politifact.com - https://www.politifact.com/
+
+
