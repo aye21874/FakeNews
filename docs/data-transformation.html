@@ -24,7 +24,7 @@
 <meta name="author" content="Andrew Schaefer, Angad Nandwani and Ayush Sinha" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-12-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -104,6 +104,28 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<pre><code>##     Speaker Job Title            State Info        Venue/Location 
+##                  3170                  2446                   110 
+##            Subject(s)               Speaker The Party Affiliation 
+##                     2                     2                     2 
+##    Barely True Counts          False Counts      Half True Counts 
+##                     2                     2                     2 
+##    Mostly True Counts  Pants on Fire Counts                    ID 
+##                     2                     2                     0 
+##                 Label             Statement 
+##                     0                     0</code></pre>
+<pre><code>## [1] &quot;Removing ID&#39;s 5872 and 8180 which had missing values for almost all columns&quot;</code></pre>
+<pre><code>## [1] &quot;Replacing all NA&#39;s in Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with UNKNOWN&quot;</code></pre>
+<pre><code>##                    ID                 Label             Statement 
+##                     0                     0                     0 
+##            Subject(s)               Speaker     Speaker Job Title 
+##                     0                     0                     0 
+##            State Info The Party Affiliation    Barely True Counts 
+##                     0                     0                     0 
+##          False Counts      Half True Counts    Mostly True Counts 
+##                     0                     0                     0 
+##  Pants on Fire Counts        Venue/Location 
+##                     0                     0</code></pre>
 
 </div>
             </section>

@@ -1,1 +1,60 @@
 # Data transformation
+
+```{r show_col_types = FALSE}
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+library(mi)
+library(extracat)
+library(dplyr)
+
+```
+
+```{r}
+df_test = read_tsv(file = 'test.tsv' )
+t = c("ID","Label","Statement","Subject(s)","Speaker","Speaker Job Title","State Info","The Party Affiliation","Barely True Counts","False Counts","Half True Counts","Mostly True Counts","Pants on Fire Counts","Venue/Location")
+colnames(df_test)<- as.vector(t)
+
+df_train = read_tsv(file = 'train.tsv' )
+t = c("ID","Label","Statement","Subject(s)","Speaker","Speaker Job Title","State Info","The Party Affiliation","Barely True Counts","False Counts","Half True Counts","Mostly True Counts","Pants on Fire Counts","Venue/Location")
+colnames(df_train)<- as.vector(t)
+
+
+df_train = read_tsv(file = 'train.tsv' )
+t = c("ID","Label","Statement","Subject(s)","Speaker","Speaker Job Title","State Info","The Party Affiliation","Barely True Counts","False Counts","Half True Counts","Mostly True Counts","Pants on Fire Counts","Venue/Location")
+colnames(df_train)<- as.vector(t)
+
+df_validate = read_tsv(file = 'valid.tsv' )
+t = c("ID","Label","Statement","Subject(s)","Speaker","Speaker Job Title","State Info","The Party Affiliation","Barely True Counts","False Counts","Half True Counts","Mostly True Counts","Pants on Fire Counts","Venue/Location")
+colnames(df_validate)<- as.vector(t)
+
+fakeNews_df <- rbind(df_train,df_test,df_validate)
+fakeNews_df$ID <- seq.int(nrow(fakeNews_df))
+```
+
+```{r}
+colSums(is.na(fakeNews_df)) %>%
+  sort(decreasing = TRUE)
+
+#Finding Rows which have Subjects, Speaker ... Pants on Fire Counts all zero
+missing = fakeNews_df[is.na(fakeNews_df$Speaker), ]  
+
+fakeNews_df_transformed = fakeNews_df %>% 
+  filter(!ID == 5872 & !ID == 8180)
+
+cat("\n")
+print("Removing ID's 5872 and 8180 which had missing values for almost all columns")
+print("Replacing all NA's in Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with UNKNOWN")
+cat("\n")
+cat("\n")
+
+fakeNews_df_transformed[is.na(fakeNews_df_transformed)] = "unknown"
+
+colSums(is.na(fakeNews_df_transformed)) %>%
+  sort(decreasing = TRUE)
+
+write.csv(fakeNews_df_transformed,"FakeNews.csv", row.names = TRUE)
+
+```
+
+
