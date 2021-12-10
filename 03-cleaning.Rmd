@@ -53,7 +53,7 @@ fakeNews_df_transformed[is.na(fakeNews_df_transformed)] = "unknown"
 colSums(is.na(fakeNews_df_transformed)) %>%
   sort(decreasing = TRUE)
 
-write.csv(fakeNews_df_transformed,"FakeNews.csv", row.names = TRUE)
+write.csv(fakeNews_df_transformed,"FakeNews.csv", row.names = FALSE)
 
 ```
 

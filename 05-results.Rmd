@@ -1,1 +1,278 @@
 # Results
+
+```{r show_col_types = FALSE}
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+library(mi)
+library(extracat)
+library(dplyr)
+library(plyr)
+library(vcd)
+library(grid)
+library(tidyverse)
+library(gridExtra)
+library(scales)
+library(openintro)
+library(GGally)
+library(ggplot2)
+library(parcoords)
+library(Lock5withR)
+library(htmltools)
+library(d3r)
+library(ggalluvial)
+library(wordcloud)
+library(tm)
+library(tidytext)
+```
+
+
+
+```{r}
+#Reference : https://benjaminlouis-stat.fr/en/blog/2020-05-21-astuces-ggplot-rmarkdown/
+
+theme_ben <- function(base_size = 14) {
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = 13, face = "bold", margin = margin(0,0,5,0), hjust = 0),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = 13, face = "bold"),
+      axis.text.x = element_text(angle = 90, size = 13, face = "bold"),
+      axis.text.y = element_text(size = 13),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = 13, face = "bold"),
+      legend.text = element_text(size = 13, face = "bold")
+    )}
+```
+
+
+```{r}
+df_fakeNews = read_csv(file = 'FakeNews.csv' )
+```
+
+
+```{r }
+#Do high positions of authority lead to misleading information - based on the distribution of data in dataset ?
+
+# Step 1 : Checking the "Speaker Job Title" which have made large number of statements in the dataset 
+           #and thresholding with atleast 40 statements
+
+df_1 = df_fakeNews %>% 
+        group_by(df_fakeNews$`Speaker Job Title`) %>% 
+        dplyr::summarise(n = n()) %>%
+        arrange(desc(n)) %>%
+        filter(n>=30) 
+
+t = c("SpeakerJobTitle","Count")
+colnames(df_1)<- as.vector(t)
+
+new_vector <- df_1$SpeakerJobTitle
+
+df_3 <- df_fakeNews[df_fakeNews$`Speaker Job Title` %in% new_vector,]
+
+df_4 <- df_3 %>%
+        filter(df_3$`Speaker Job Title` != "unknown")
+
+#VVIMPT
+df_4$`Speaker Job Title` = tolower(df_4$`Speaker Job Title`)
+
+df_5 = df_4 %>%
+        group_by(df_4$`Speaker Job Title`, df_4$Label) %>%
+        dplyr::summarise(n = n())
+
+t = c("SpeakerJobTitle","Label","Count")
+colnames(df_5)<- as.vector(t)
+
+```
+
+```{r fig.width=13}
+#Do high positions of authority lead to misleading information - based on the distribution of data in dataset ?
+
+ggplot(df_5, aes(x=df_5$SpeakerJobTitle, y=df_5$Count))+
+  geom_bar(stat='identity', fill="forest green")+
+  ylab("Count") +  xlab("Speaker Job Title") +
+  facet_wrap(~df_5$Label,  ncol=1) +
+  theme_ben() 
+```
+
+
+```{r fig.width=20, fig.height=20}
+# Who In party (Higher or lower positions of power)  lead to corrupt information?
+
+df_8 = df_4 %>%
+        group_by(df_4$`Speaker Job Title`, df_4$`The Party Affiliation`, df_4$Label) %>%
+        dplyr::summarise(n= n()) %>%
+        arrange(desc(n))
+
+t = c("SpeakerJobTitle","ThePartyAffiliation", "Label","Count")
+colnames(df_8)<- as.vector(t)
+
+df_9 = filter(df_8, Label == "false" | Label == "half-true")
+
+df_10 = filter(df_9, ThePartyAffiliation=="independent" | ThePartyAffiliation=="republican" | ThePartyAffiliation=="democrat")
+
+```
+
+
+```{r fig.width=13}
+ 
+# Stacked
+ggplot(df_10, aes(fill=df_10$Label, y=df_10$Count, x=df_10$SpeakerJobTitle)) + 
+    geom_bar(position="stack", stat="identity") + 
+    facet_wrap(~df_10$ThePartyAffiliation,  ncol=1) + theme_ben()
+
+```
+
+```{r fig.width=13, fig.height=13}
+
+# Most selected topic by each authority power, and relationship with fake news
+
+df_6 = df_4 %>%
+        group_by(df_4$`Speaker Job Title`, df_4$`Subject(s)`, df_4$Label) %>%
+        dplyr::summarise(n= n()) %>%
+        arrange(desc(n)) %>%
+        filter(n>=4)
+
+t = c("SpeakerJobTitle","Subjects", "Label","Count")
+colnames(df_6)<- as.vector(t)
+
+df_12 = filter(df_6, Label == "false" | Label == "half-true")
+
+ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) + 
+    geom_bar(position="dodge", stat="identity") + scale_fill_viridis(discrete=TRUE) + 
+     theme_ben() + coord_polar() 
+
+
+```
+
+```{r}
+
+#Increasing Power & medium chosen to propogate fake news
+
+df_10 = df_4 %>%
+        group_by(df_4$`Speaker Job Title`, df_4$`Venue/Location`, df_4$Label) %>%
+        dplyr::summarise(n= n()) %>%
+        arrange(desc(n)) %>%
+        filter(n>=4)
+
+t = c("SpeakerJobTitle","Venue", "Label","Count")
+colnames(df_10)<- as.vector(t)
+
+df_11 = filter(df_10, Label == "false" | Label == "half-true")
+
+```
+
+
+
+```{r}
+#Reference : https://dk81.github.io/dkmathstats_site/rtext-freq-words.html
+
+df_19 = filter(fakeNews_df,Label=="false" | Label =="barely-true" | Label=="half-true" | Label=="pants-fire")
+
+df_text <- Corpus(VectorSource(df_19$Statement))
+df_text_clean <- tm_map(df_text, removePunctuation)
+df_text_clean <- tm_map(df_text, content_transformer(tolower))
+df_text_clean <- tm_map(df_text, removeNumbers)
+df_text_clean <- tm_map(df_text, stripWhitespace)
+df_text_clean <- tm_map(df_text, removeWords, stopwords('english'))
+
+wordcloud(df_text_clean, scale = c(2, 1), min.freq = 100, colors = rainbow(30))
+```
+```{r}
+df_20 = filter(fakeNews_df,Label=="true" | Label =="mostly-true" )
+
+df_text <- Corpus(VectorSource(df_20$Statement))
+df_text_clean <- tm_map(df_text, removePunctuation)
+df_text_clean <- tm_map(df_text, content_transformer(tolower))
+df_text_clean <- tm_map(df_text, removeNumbers)
+df_text_clean <- tm_map(df_text, stripWhitespace)
+df_text_clean <- tm_map(df_text, removeWords, stopwords('english'))
+
+wordcloud(df_text_clean, scale = c(2, 1), min.freq = 100, colors = rainbow(30))
+
+```
+
+
+```{r fig.width=13}
+#reference :-https://dk81.github.io/dkmathstats_site/rtext-freq-words.html
+
+df_text <- data_frame(Text = df_19$Statement)
+df_text_word <- df_text %>% 
+                unnest_tokens(output = word, input = Text)
+df_text_word <- df_text_word %>%
+                   anti_join(stop_words) # Remove stop words in peter_words
+
+df_17 = df_text_word %>%
+        group_by(df_text_word$word) %>%
+        dplyr::summarise(n= n()) %>%
+        arrange(desc(n)) 
+
+df_17$`df_text_word$word` <- gsub('[0-9.]', '', df_17$`df_text_word$word`)
+df_18 = filter(df_17,df_17$`df_text_word$word`!="")
+
+t = c("word","n")
+colnames(df_18)<- as.vector(t)
+
+
+df_18 %>% 
+  filter(n > 500) %>%
+   mutate(word = reorder(word, n)) %>% 
+    ggplot(aes(word, n)) + 
+    geom_col() +
+    coord_flip() +
+    labs(x = "Word \n", y = "\n Count ", title = "Frequent Words In Peter Pan \n") +
+    geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") + theme_ben()
+    
+  
+```
+
+
+```{r}
+#Relation of number of punctuation with each Speaker and the label assigned
+
+#References : https://rdrr.io/github/Amherst-Statistics/katherinemansfieldr/src/R/extract.R
+
+extract_punct <- function(text){
+  output <- as.vector(tolower(text))
+  output <- strsplit(output, "( [a-z]+|[a-z]+)") %>%
+    unlist()
+  output <- output[which(output != "")]
+  output <- strsplit(output, " ") %>%
+    unlist()
+  output <- gsub("\u201D", "~\u201D", output)
+  output <- strsplit(output, "~", perl = TRUE) %>%
+    unlist()
+  return(output)
+}
+
+countPunctuations <- vector()
+LabelData <- vector()
+SpeakerJobTitle <- vector()
+
+for(i in 1:nrow(df_4)) {
+  countPunctuations[i] = length(extract_punct(df_4$Statement[i]))
+  LabelData[i] = df_4$Label[i]
+  SpeakerJobTitle[i] = df_4$`Speaker Job Title`[i]
+}
+
+df_14 = data.frame(countPunctuations,LabelData,SpeakerJobTitle)
+
+df_15 = aggregate(df_14$countPunctuations, by=list(df_14$SpeakerJobTitle,df_14$LabelData), FUN=sum)
+
+df_16 = filter(df_15, x<=1000)
+
+ggplot(df_16, aes(x = x, y = reorder(Group.1, x))) +
+  geom_point(aes(colour = Group.2)) +   # Use a larger dot 
+  xlab("Count of Punctuations in Statement") + ylab("Speaker Job Title")
+
+```
+  
+
+
+
+
