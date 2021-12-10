@@ -144,10 +144,10 @@ colnames(df_6)<- as.vector(t)
 df_12 = filter(df_6, Label == "false" | Label == "half-true")
 
 ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) + 
-    geom_bar(position="dodge", stat="identity") + scale_fill_viridis(discrete=TRUE) + 
+    geom_bar(position="dodge", stat="identity") + 
      theme_ben() + coord_polar() 
 
-
+# scale_fill_viridis(discrete=TRUE) + 
 ```
 
 ```{r}
