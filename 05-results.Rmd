@@ -338,9 +338,9 @@ df_f4$total <- df_order$n[match(df_f4$StateInfo, df_order$StateInfo)]
 df_f4$panel <- df_order$Panel[match(df_f4$StateInfo, df_order$StateInfo)]
 df_f4 <- df_f4[order(-df_f4$total),]
 
-
+lvl = c("pants-fire", "false", "barely-true", "half-true", "mostly-true", "true")
 df_f4 %>%
-ggplot(aes(fill = Label, y = Count, x = reorder(StateInfo,total) )) + 
+ggplot(aes(fill = factor(Label, levels = lvl), y = Count, x = reorder(StateInfo,total) )) + 
   geom_bar(position="stack", stat="identity") + 
   facet_wrap(~panel, ncol=1, scales="free") +
   xlab("State Info") +
