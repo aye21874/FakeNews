@@ -1,2 +1,197 @@
 # Conclusion
 
+```{r show_col_types = FALSE}
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+library(mi)
+library(extracat)
+library(dplyr)
+library(plyr)
+library(vcd)
+library(grid)
+library(tidyverse)
+library(gridExtra)
+library(scales)
+library(openintro)
+library(GGally)
+library(ggplot2)
+library(parcoords)
+library(Lock5withR)
+library(htmltools)
+library(d3r)
+library(ggalluvial)
+library(wordcloud)
+library(tm)
+library(tidytext)
+library(viridis)
+library(usmap) #import the package
+```
+
+
+```{r fig.width=17}
+#Which method of communication or social media platforms are most prone to misinformation? - Angad
+
+fakeNews_df_transformed = read_csv(file = 'FakeNewsUpdated.csv' )
+fakeNews_df_transformed_false = filter(fakeNews_df_transformed, Label=="false"| Label =="barely-true" | Label=="half-true" | Label=="pants-fire")
+  
+df_51 = fakeNews_df_transformed_false %>% 
+        group_by(fakeNews_df_transformed_false$groupedVenue, fakeNews_df_transformed_false$`State Info`) %>% 
+        dplyr::summarise(n = n()) %>%
+        arrange(desc(n)) 
+
+t = c("GroupedVenue","region","n")
+colnames(df_51)<- as.vector(t)
+
+df_52 = filter(df_51, region != "unknown") 
+
+state <- map_data("state")
+state$region = tolower(state$region)
+df_52$region = tolower(df_52$region)
+
+df_53 = df_52 %>%
+            group_by(region) %>%
+            filter(n==max(n) & n>=2)
+
+  
+df_54 <- left_join(state, df_53, by = c('region'))
+
+
+df_54$GroupedVenue=  df_54$GroupedVenue %>% recode("news conference, press conference" = "News-Conference",
+                      "television interview" = "Television Interview",
+                      "campaign ad, campaign tv ad, campaign web ad" = "Campaign Advertisement",
+                      "press releaase, press release, press releases" = "Press Release",
+                      "speech, speeches" = "Speeches Given",
+                      "tv ad, tv ads, tv talk, web ad"="Television Advertisement",
+                      "unknown" = "Unknown",
+                      "internet, interview, interviews"="Online Interviews",
+                      "interview nbcs meet press" = "Press Interview",
+                      "vice presidential debate, vicepresidential debate" = "Vice-Presidential Debate",
+                      "campaign commercial, campaign commerical, campaign tv commercial, tv campaign commercial" = "Commercial Campaign",
+                      "senate floor speech" = "Senate Speech",
+                      "alert, retweet, ticket, tweet, tweets" = "Tweets" ,
+                      "interview cnn, interview cspan, interview ed, interview union" = "Interview Cnn",
+                      "news release" = "News Release",
+                      "opinion colulmn, opinion column" = "opinion column" ,
+                      "comments abcs week" = "Comments",
+                      "date, debate, senate, tv debate" = "Debate",
+                      "public statement, public statements" = "Public Statement",
+                      "speech senate floor" = "Speech",
+                      "cameo interview, radio interview" = "Radio Interview",
+                      "interview fox news sunday"="Interview Fox News")
+
+ggplot(data=df_54, aes(x=long, y=lat, fill=GroupedVenue, group=region)) + 
+  geom_polygon(color = "white") + ggtitle("Most Popular Platforms to Spread Fake News State Wise") + theme_ben()
+ 
+  
+```
+
+
+```{r fig.width=10}
+
+df_60 = df_52 %>%
+            group_by(GroupedVenue)
+
+df_61 = df_60 %>%
+  pivot_wider(names_from = GroupedVenue, values_from = n)
+
+#snapshot with almost no missing values
+df_62 = df_61[1:13, 1:10]
+
+df_63 = df_62 %>% replace(is.na(.), 0) %>% mutate(row_wise_mean = rowMeans(.[2:10])) 
+
+for (row in 1:nrow(df_63)) {
+  for(col in 1:(ncol(df_63)-1)){
+    if(df_63[row,col]==0)
+    df_63[row,col] = as.integer(df_63[row,"row_wise_mean"])
+  }
+}
+t = c("Region","Online Interview","Press Release","News Release","TV Advertisement","Speeches","News Conferences","Radio Interview","Tweets", "TV Interview","Row_Wise_Mean")
+colnames(df_63)<- as.vector(t)
+
+#ggparcoord(df_63, columns =2:10, scale = "globalminmax", groupColumn = 1)  + theme_ben() + xlab("Platform Used for fake news") + ylab("Count for #total number of times platform was used to spread Fake News")
+
+
+df_63[,1:10]  %>% 
+  parcoords(
+    rownames = F
+    , brushMode = "1D-axes"
+    , reorderable = T
+    , queue = T
+    , color = list(
+    colorScale = "scaleOrdinal",
+    colorBy = "Region",
+    colorScheme = "schemeCategory10"
+  ),
+  ,withD3 = TRUE
+  ,height = 700
+  ,width = 1000
+  )
+
+```
+
+
+
+
+```{r fig.width=10}
+
+fakeNews_df_transformed_true = filter(fakeNews_df_transformed, Label=="true"| Label =="mostly-true")
+  
+df_71 = fakeNews_df_transformed_true %>% 
+        group_by(fakeNews_df_transformed_true$groupedVenue, fakeNews_df_transformed_true$`State Info`) %>% 
+        dplyr::summarise(n = n()) %>%
+        arrange(desc(n)) 
+
+t = c("GroupedVenue","region","n")
+colnames(df_71)<- as.vector(t)
+
+df_72 = filter(df_71, region != "unknown") 
+
+
+df_73 = df_72 %>%
+            group_by(GroupedVenue)
+
+df_74 = df_73 %>%
+  pivot_wider(names_from = GroupedVenue, values_from = n)
+
+#snapshot with almost no missing values
+df_75 = df_74[1:13, 1:9]
+
+df_76 = df_75 %>% replace(is.na(.), 0) %>% mutate(row_wise_mean = rowMeans(.[2:9])) 
+
+for (row in 1:nrow(df_76)) {
+  for(col in 1:(ncol(df_76)-1)){
+    if(df_76[row,col]==0)
+    df_76[row,col] = as.integer(df_76[row,"row_wise_mean"])
+  }
+}
+
+t = c("Region"," Press Release","TV Advertisement","Online Interview", "News Release", "Speeches","Tweets" , "News Conference", "Debate","Row-Wise-Mean")
+colnames(df_76)<- as.vector(t)
+
+#ggparcoord(df_76, columns =2:9, scale = "globalminmax", groupColumn = 1) + theme_ben() + xlab("Platform Used for Real news") + ylab("Count for #total number of times platform was used to spread Real News")
+
+df_76[,1:9]  %>% 
+  parcoords(
+    rownames = F
+    , brushMode = "1D-axes"
+    , reorderable = T
+    , queue = T
+
+    , color = list(
+    colorScale = "scaleOrdinal",
+    colorBy = "Region",
+    colorScheme = "schemeCategory10"
+  ),
+  ,withD3 = TRUE
+  ,height = 700
+  ,width = 1000,
+  )
+```
+
+
+
+```{r}
+
+```
+

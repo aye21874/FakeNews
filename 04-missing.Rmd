@@ -277,8 +277,9 @@ Row-Wise Patterns
 
 * Note, we imported this package from github - https://github.com/heike/extracat#installation
 
+
 ```{r fig.width=20, fig.height=13}
-plt.prop(df_test, percent = TRUE)
+#plt.prop(df_test, percent = TRUE)
 ```
 
 * This is missing value plot for our dataset similar to the question2 
@@ -345,18 +346,18 @@ ggplot(df_pivot, aes(y = key, x = fct_rev(`The Party Affiliation`), fill = missi
 #features = c("State Info","Label")
 #df_new = df[features]
 
-df_test1 <- df_test %>% 
-  group_by(`State Info`,Label) %>% 
-  summarise_each(funs(sum(is.na(.))))
+#df_test1 <- df_test %>% 
+ # group_by(`State Info`,Label) %>% 
+  #summarise_each(funs(sum(is.na(.))))
 
 
-df_test1$`State Info` = replace_na(df_test1$`State Info`,"Unknown")
+#df_test1$`State Info` = replace_na(df_test1$`State Info`,"Unknown")
 
-ggplot(df_test1, aes(x = df_test1$`Speaker Job Title`, 
-                        y = df_test1$`State Info`,
-                        color=Label,
-                      )) + geom_point() + 
-  xlab("Speaker Job Title") + ylab("State Info")
+#ggplot(df_test1, aes(x = df_test1$`Speaker Job Title`, 
+ #                       y = df_test1$`State Info`,
+  #                      color=Label,
+   #                   )) + geom_point() + 
+  #xlab("Speaker Job Title") + ylab("State Info")
 
 ```
 

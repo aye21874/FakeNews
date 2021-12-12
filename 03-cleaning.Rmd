@@ -7,7 +7,31 @@ library(ggplot2)
 library(mi)
 library(extracat)
 library(dplyr)
-
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+library(mi)
+library(extracat)
+library(dplyr)
+library(plyr)
+library(vcd)
+library(grid)
+library(tidyverse)
+library(gridExtra)
+library(scales)
+library(openintro)
+library(GGally)
+library(ggplot2)
+library(parcoords)
+library(Lock5withR)
+library(htmltools)
+library(d3r)
+library(ggalluvial)
+library(wordcloud)
+library(tm)
+library(tidytext)
+library(viridis)
+library(sjmisc)
 ```
 
 ```{r}
@@ -53,8 +77,56 @@ fakeNews_df_transformed[is.na(fakeNews_df_transformed)] = "unknown"
 colSums(is.na(fakeNews_df_transformed)) %>%
   sort(decreasing = TRUE)
 
-write.csv(fakeNews_df_transformed,"FakeNews.csv", row.names = FALSE)
+```
 
+
+
+```{r}
+
+#https://www.johnabernau.com/code/text_analysis/
+
+cleaningFakeNewsColumn <- function(inputColumn, nrows ) { 
+  for (i in 1:nrows)
+  {
+    moby <- tolower(inputColumn[i]) # Lowercase
+    #print(moby)
+    moby <- gsub("[[:punct:]]", "", moby) # Remove punctuation
+    moby <- gsub("[[:digit:]]", "", moby) # Remove numbers
+    moby <- gsub("\\s+", " ", str_trim(moby)) # Remove extra whitespaces
+    vocab <- unlist(str_split(moby, " ")) # Split into vocab list
+    total_words <- length(vocab) # Total words
+    unique_words <- length(unique(vocab)) # Unique Words
+    lex_div <- unique_words / total_words # Lexical Diversity 
+    vocab_nsw <- vocab[!(vocab) %in% stop_words$word] # Only keep non-stopwords
+    moby_clean <- paste(vocab_nsw, collapse = " ") # Gather back into one string
+    inputColumn[i] = moby_clean
+    #print(moby_clean) # Examining our cleaned text block
+  }
+  return(inputColumn)
+}
+
+cleanColumn = cleaningFakeNewsColumn(fakeNews_df_transformed$`Venue/Location`, nrow(fakeNews_df_transformed))
+fakeNews_df_transformed["Venue"]= cleanColumn
+
+```
+
+```{r}
+# It takes approximately 10min
+newstring <- group_str(fakeNews_df_transformed$Venue, precision = 3, strict = TRUE)
+print(length(newstring))
+
+```
+
+
+```{r}
+newstring[11375]="unknown"
+newstring[11376]="unknown"
+fakeNews_df_transformed["groupedVenue"] = newstring
+```
+
+
+```{r}
+write.csv(fakeNews_df_transformed,"FakeNewsUpdated.csv", row.names = FALSE)
 ```
 
 

@@ -24,6 +24,8 @@ library(ggalluvial)
 library(wordcloud)
 library(tm)
 library(tidytext)
+library(viridis)
+library(usmap) #import the package
 ```
 
 
@@ -175,10 +177,10 @@ ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) 
   geom_bar(position="dodge", stat="identity") +
   xlab("Subjects") +
   ylab("Count") +
-  labs(fill = "Speaker Job Title") +
+  labs(fill = "Speaker Job Title") + scale_fill_viridis(discrete=TRUE) + 
   theme_ben() + coord_polar() 
 
-# scale_fill_viridis(discrete=TRUE) + 
+
 ```
 
 ```{r}
@@ -347,6 +349,7 @@ ggplot(aes(fill = Label, y = Count, x = reorder(StateInfo,total) )) +
   theme_ben2(ang=0, add=2)
 
 ```
+
 
 
 
