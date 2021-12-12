@@ -26,6 +26,7 @@ library(tm)
 library(tidytext)
 library(viridis)
 library(usmap) #import the package
+library(treemap)
 ```
 
 
@@ -193,5 +194,44 @@ df_76[,1:9]  %>%
 
 ```{r}
 
+df_80 = fakeNews_df_transformed_false %>% 
+      group_by(fakeNews_df_transformed_false$`State Info`) %>% 
+      dplyr::summarise(n = n()) %>%
+      arrange(desc(n)) 
+
+t = c("State","NumberofFalseCounts")
+colnames(df_80)<- as.vector(t)
+
+df_81 = fakeNews_df_transformed_false %>%
+        group_by(fakeNews_df_transformed_false$`State Info`, fakeNews_df_transformed_false$Speaker) %>% 
+        dplyr::summarise(n = n()) %>%
+        arrange(desc(n)) 
+
+
+t = c("State"," UniqueSpeakerPerState","Count")
+colnames(df_81)<- as.vector(t)
+
+
+df_82 = df_81 %>% 
+      group_by(df_81$State) %>% 
+      dplyr::summarise(n = n()) %>%
+      arrange(desc(n)) 
+
+t = c("State","NumberofSpeakers")
+colnames(df_82)<- as.vector(t)
+
+df_80["NumberofSpeakers"] =df_82$`NumberofSpeakers`
+
+df_83 = df_80 %>% filter(NumberofFalseCounts>20)
+
+```
+
+```{r fig.width=10}
+treemap::treemap(df_83,
+       index=c("State"),
+       vSize="NumberofFalseCounts",
+       vColor="NumberofSpeakers",
+       type="value",
+       format.legend = list(scientific = FALSE, big.mark = " ")) + theme_ben()
 ```
 
