@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="interactive-component.html"/>
-
+<link rel="next" href="missing-values-1.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -73,16 +73,14 @@
 <li><a href="./">FakeNews</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-"><i class="fa fa-check"></i><b>1.1</b> Project:-</a></li>
-</ul></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="8" data-path="missing-values-1.html"><a href="missing-values-1.html"><i class="fa fa-check"></i><b>8</b> Missing values</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -104,78 +102,6 @@
             <section class="normal" id="section-">
 <div id="conclusion" class="section level1" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Conclusion</h1>
-<!-- Summary
-
-<!-- 1) For this section, we have tried answering 10 questions below, which we find  intriguing from the dataset.  -->
-<!-- 2) For each of them we tried summarizing the steps on how we approached this particular question and what assumptions were taken.  -->
-<!-- 3) We have also summarized each graph and in the process answered each relevalant question.  -->
-<!-- Note :- We have used the data from "FakeNews_Clean.csv" obtained after cleaning/processing the datasset. From this file, we have created 2 dataframes. One for the Fake News grouped by Labels ("false","half-true","pants-fire","barely-true") and the other by Factual News grouped by Label ("True", "stly-True").  -->
-<p><strong>Question 1 : Which positions of authority lead to Fake &amp; Factual information? Which Party tends to spread Fake News More? </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-58-1.png" width="80%" /></p>
-<p><strong>Observation from Graph 1</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>President, Governor &amp; Senators from different Party are most popular “Speaker Job Titles” in spreading both Fake &amp; Factual News.</p></li>
-<li><p>The “President Elect” &amp; “Predient Candidate” had almost equal counts for spreading Fake or Factual News</p></li>
-<li><p>Senators from the Party lead the count for spreading information, for both Factual &amp; Fake. The graph also demonstrates highest Pants-Fire count for Senators, deonting that they are the one’s with most latest information related to Party.</p></li>
-<li><p>For any “Speaker Job Title”, the counts for mostly-true labels were higher than the true.</p></li>
-<li><p>House Officials have the least power in spreading Fake or Factual News.</p></li>
-<li><p>The overall projects in counts for False and Barely True lead the other labels, signifying that almost all Speaker Job Titles from Graph spread high propotion of Fake News.</p></li>
-</ol>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-59-1.png" width="80%" /></p>
-<p><strong>Observation from Graph 2</strong></p>
-<ol style="list-style-type: decimal">
-<li>Republican Party is more prone towards spreading Fake News.</li>
-<li>The Propotion of Half-True is more than False for almost all Speakers belonging to any party. This tells us that significane of some truth in any given statement is high.</li>
-</ol>
-<p><strong>Question 2: What are the most selected topic/Subject picked by each Speaker which has the highest tendency of Spreading Fake News"</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-60-1.png" width="80%" /></p>
-<p><strong>Observation from Graph</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>Senators have spread Fake News in highest propotion with respect to every topic demonstrated in graph</p></li>
-<li><p>President Candidate had Fake News only related to Immigration</p></li>
-<li><p>President didn’t had Fake News related to topics like Military, Abortion, Debts, Jobs, Economy,</p></li>
-<li><p>Only Senators and President had fake news related to topics :- Fires, Iraq, Israel, Islam, Foreign Policy, Fedral Budge, Energy.</p></li>
-<li><p>Education Subject had the highest count for fake news and the most selected topic by any speaker.</p></li>
-<li><p>The Propotion of Half-True is more than False for almost all Speakers belonging to any party. This tells us that significane of some truth in any given statement is high.</p></li>
-</ol>
-<p><strong>Question 3:- States Spreading maximum number of false counts, noting the count of different speakers involved in spreading Fake News</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-62-1.png" width="80%" /></p>
-<p><strong>Observation from the Graphs</strong></p>
-<p>Above Graph gives a clear idea for the count of Fake News in each State. The larger the rectangle, the state had more number of Fake News Spread. The color is mapped with the different number of speakers involved in that state to spread Fake News.</p>
-<ol style="list-style-type: decimal">
-<li><p>There were lot of states in the dataset which were labelled Unknown while pre-processing, which apparently are also spreading Fake News in high propotions</p></li>
-<li><p>Texas is most widely known state to spread Fake News with about 400+ different Speakers involved in spreading Fake News</p></li>
-<li><p>Count of Fake News Spread is closely related with the different number of Speakers spreading the news. North Carolina, Tennessee, Colorado, Alaska etc, which share the same size, have least number of different speakers observed.</p></li>
-<li><p>New York, Wisconsin and Florida have almost equal number of counts in spreading Fake News, which are compartively high when compare to other states. Also, Wisconsin and New York share the same count for number of speakers but the Florida has most number of different speakers among the 3, spreading the Fake News.</p></li>
-</ol>
-<p><strong>Question 4 :- The Most Prone Fake News Method of communication, State Wise </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-63-1.png" width="80%" /></p>
-<p><strong>Observation from Graph</strong></p>
-<p>Below are the few names of venues (platforms) state wise which were used maximum times to spread fake news</p>
-<ol style="list-style-type: decimal">
-<li><p>Florida, Texas, California, Indiana, Maryland, Missouri, North Carolina mostly uses Press Release as the mediumn for fake news.</p></li>
-<li><p>Georgia, Illinois, Pennsylvania, Virginia mostly uses Speeches as the medium for fake news.</p></li>
-<li><p>Since the states map imported from library had more states than the states present in our dataframe, we obderved NA in the graph. We didn’t had the information related to “most widely platforms used” to spreak fake news.</p></li>
-<li><p>Our Grouping of Venue Like Tweets/Tweet to Tweet might not be that accurate as we have used group_str to do the concatenation with the distance of similarity as 3 between words. This parameter can be manipualated for better efficiency.</p></li>
-</ol>
-<p><strong>Question 5:- Correlation, Clusters &amp; Outliers observed for different Mediums/Platforms in spreading Fake News for each State </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-64-1.png" width="80%" /></p>
-<p><strong>Observation from the Graphs</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>The count for OnlineInterview Medium for spreading Fake News was mostly less (&lt;10) for most of the regions, except Wisconscin, Texas and Florida.</p></li>
-<li><p>Most of the States, who have used Press Release for spreading Fake News, have also used News Release. We observed Positive Correlation between these two mediums for almost all the regions</p></li>
-<li><p>Similarly, we noticed negative correlation between News Release and TV Advertisement. Those states which have used News Release have a reduce count for the TV Advertisement</p></li>
-<li><p>We noticed wide range of differences in count between New York &amp; Jersy for each above mentioned platform in graohw which suggest different political administration.</p></li>
-<li><p>Even Tweeter, the most popular online social platform waas not used as the medium to spread Fake News for these states.</p></li>
-</ol>
-<p><strong>Question 6: Count of Words in Statment and its relationship with Label for the News</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-65-1.png" width="80%" /></p>
-<p><strong>Observation from the Graphs</strong></p>
-<p>For Statements between 100 and 1000 Words,</p>
-<ol style="list-style-type: decimal">
-<li><p>The propotion for the True Labels are high with the word counts less than 300 in the statements made by any speaker</p></li>
-<li><p>All Speakers had False Count in more propotion over True Count.</p></li>
-</ol>
 
 </div>
             </section>
@@ -183,8 +109,8 @@
           </div>
         </div>
       </div>
-<a href="interactive-component.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="interactive-component.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="missing-values-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

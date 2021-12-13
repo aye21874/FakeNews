@@ -1,6 +1,7 @@
 # Data transformation
 
 ```{r show_col_types = FALSE}
+library(plyr)
 library(tidyverse)
 library(patchwork)
 library(ggplot2)
@@ -11,8 +12,6 @@ library(tidyverse)
 library(ggplot2)
 library(mi)
 library(extracat)
-library(dplyr)
-library(plyr)
 library(vcd)
 library(grid)
 library(tidyverse)
@@ -74,6 +73,9 @@ colnames(df_validate)<- as.vector(t)
 
 fakeNews_df <- rbind(df_train,df_test,df_validate)
 fakeNews_df$ID <- seq.int(nrow(fakeNews_df))
+
+
+write.csv(fakeNews_df,"FakeNews_Unclean.csv", row.names = FALSE)
 ```
 
 
@@ -162,29 +164,33 @@ cleanGroupFunction <- function(inputColumn, newColumn ) {
 
 ```{r}
 
-#It takes 10 min 
-newColumn = cleanGroupFunction(fakeNews_df_transformed$`Venue/Location`)
-for(i in range((length(newColumn)+1)):11376)
-{
-  newColumn[i]="unknown"
-}
-fakeNews_df_transformed["Venue"]= newColumn[1:11376]
+# #It takes 10 min 
+# newColumn = cleanGroupFunction(fakeNews_df_transformed$`Venue/Location`)
+# for(i in range((length(newColumn)+1)):11376)
+# {
+#   newColumn[i]="unknown"
+# }
+# fakeNews_df_transformed["Venue"]= newColumn[1:11376]
+# 
+# #It takes 10 min
+# newColumn = cleanGroupFunction(fakeNews_df_transformed$`Subject(s)`)
+# for(i in range((length(newColumn)+1)):11376)
+# {
+#   newColumn[i]="unknown"
+# }
+# fakeNews_df_transformed["Subject"]= newColumn[1:11376]
+# 
+# #It takes 10 min
+# newColumn = cleanGroupFunction(fakeNews_df_transformed$`Speaker Job Title`)
+# for(i in range((length(newColumn)+1)):11376)
+# {
+#   newColumn[i]="unknown"
+# }
+# fakeNews_df_transformed["SpeakerJobTitle"]= newColumn[1:11376]
 
-#It takes 10 min
-newColumn = cleanGroupFunction(fakeNews_df_transformed$`Subject(s)`)
-for(i in range((length(newColumn)+1)):11376)
-{
-  newColumn[i]="unknown"
-}
-fakeNews_df_transformed["Subject"]= newColumn[1:11376]
+# Cleaning some unknown values after grouping
 
-#It takes 10 min
-newColumn = cleanGroupFunction(fakeNews_df_transformed$`Speaker Job Title`)
-for(i in range((length(newColumn)+1)):11376)
-{
-  newColumn[i]="unknown"
-}
-fakeNews_df_transformed["SpeakerJobTitle"]= newColumn[1:11376]
+# fakeNews_df_transformed[is.na(fakenews_df_clean)] = "unknown"
 ```
 
 
@@ -198,12 +204,13 @@ fakeNews_df_transformed["PartyAffiliation"]= cleanColumn
 
 ```
 
+
 ```{r}
 #Creating a new file - FakeNews_Clean.csv 
 
-fakeNews_df_transformed_clean = fakeNews_df_transformed
-drop <- c("Venue/Location","Subject(s)","Speaker Job Title","The Party Affiliation","State Info")
-fakeNews_df_transformed = fakeNews_df_transformed[,!(names(fakeNews_df_transformed) %in% drop)]
-write.csv(fakeNews_df_transformed,"FakeNews_Clean.csv", row.names = FALSE)
+# fakeNews_df_transformed_clean = fakeNews_df_transformed
+# drop <- c("Venue/Location","Subject(s)","Speaker Job Title","The Party Affiliation","State Info")
+# fakeNews_df_transformed = fakeNews_df_transformed[,!(names(fakeNews_df_transformed) %in% drop)]
+# write.csv(fakeNews_df_transformed,"FakeNews_Clean.csv", row.names = FALSE)
 ```
 

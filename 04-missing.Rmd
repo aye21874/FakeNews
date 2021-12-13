@@ -22,7 +22,7 @@ theme_fakeNews_rotate <- function(base_size = 14, ang=90) {
       panel.border = element_blank(),
       # Les axes
       axis.title = element_text(size = 13, face = "bold", margin = margin(10,10,10,10)),
-      axis.text.x = element_text(size = 13, face = "bold", margin = margin(10,10,10,10)),
+      axis.text.x = element_text(size = 13, face = "bold", margin = margin(10,10,20,10), angle = ang),
       axis.text.y = element_text(size = 13, face="bold", margin = margin(10,10,10,10)),
       axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
       # La légende
@@ -112,7 +112,20 @@ missingGraphPropotion <- function(df, percent=FALSE, shorten=FALSE) {
     xlab('') +
     scale_y_continuous(expand = c(0,0), limits = limit, n.breaks = 5) +
     scale_x_discrete(labels = sh) +
-    theme(legend.position = 'none')
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = 25, face = "bold", margin = margin(10,10,10,10), hjust = 0.5),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = 13, face = "bold", margin = margin(10,10,10,10)),
+      axis.text.x = element_text(size = 13, face = "bold", margin = margin(10,10,10,10), angle = 90),
+      axis.text.y = element_text(size = 13, face="bold", margin = margin(10,10,10,10)),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = 13, face = "bold"),
+      legend.text = element_text(size = 13, face = "bold"))
   
   if(percent){
     g$count <- 100*g$count/sum(g$count)
@@ -157,7 +170,20 @@ missingGraphPropotion <- function(df, percent=FALSE, shorten=FALSE) {
     scale_y_continuous(expand = c(0,0), limits = limit, n.breaks = 5) +
     scale_alpha_manual(values = c(alph, 1)) +
     coord_flip() +
-    theme(legend.position = 'none')
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = 25, face = "bold", margin = margin(10,10,10,10), hjust = 0.5),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = 13, face = "bold", margin = margin(10,10,10,10)),
+      axis.text.x = element_text(size = 13, face = "bold", margin = margin(10,10,10,10)),
+      axis.text.y = element_text(size = 13, face="bold", margin = margin(10,10,10,10)),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = 13, face = "bold"),
+      legend.text = element_text(size = 13, face = "bold"))
   
   
   # main plot
@@ -166,7 +192,20 @@ missingGraphPropotion <- function(df, percent=FALSE, shorten=FALSE) {
   scale_alpha_manual(values = c(alph, 1)) +
   annotate('text', x = length(x = unique(pl$name))/2 + 0.5, y = tail(pl$row,1) - pl[pl$fill == 0,]$row[1] + 1, label = 'Complete Cases') +
   scale_x_discrete(labels = sh) +
-  theme(legend.position = 'none') +
+  theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = 25, face = "bold", margin = margin(10,10,10,10), hjust = 0.5),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = 13, face = "bold", margin = margin(10,10,10,10)),
+      axis.text.x = element_text(size = 13, face = "bold", margin = margin(10,10,10,10), angle = 90),
+      axis.text.y = element_text(size = 13, face="bold", margin = margin(10,10,10,10)),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = 13, face = "bold"),
+      legend.text = element_text(size = 13, face = "bold")) +
   xlab('variable') +
   ylab('missing pattern')
   
@@ -263,7 +302,7 @@ Since we noticed that "Speaker Job Title" and "State Info" had maximum missing v
 
 **Missing propotions**
 
-```{r fig.width=25}
+```{r fig.width=17, fig.height=10}
 
 missingGraphPropotion(df_missing) 
 ```
