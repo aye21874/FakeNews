@@ -7,14 +7,35 @@ site: bookdown::bookdown_site
 
 # Introduction
 
-Project:-
--------------
-The three questions out of this dataset which we are interested in pursuing are:
+Recently, the consumption of global news and its authenticity has become a considerable challenge. Social Media platforms like Facebook, Twitter enables us to access news anywhere, but they also have the equal potential to spread Fake News, thereby delivering false information. This definitely has a huge negative impact on the society, thereby making it necessary to determine whether the news is fake or factual. 
 
-1) Do high positions of authority lead to misleading information?
+Automatic fake news detection is a challenging problem in deception detection, and it has tremendous potential on real-world political and social impacts. One of the datasets which allow us to build models and predict fake news is Liar Detection. This dataset has has 12,800 human labelled short statements in various contexts related to politics, and useful for the fact-checking research for news. In this project, we have used this dataset to explore the following questions/statements through exploratory data analysis.  
 
-2) Which method of communication or social media platforms are most prone to misinformation?
+**Questions/Statements**
 
-3) The state’s with maximum proportions of fake news and in what subject? Which subject has the most concentrated fake news?
+    1) Which positions of authority lead to Fake & Factual information? 
+       Which party tends to spread Fake News More?
 
-Overall, through visualization, we wanted to find out the most reliable method of receiving correct information, which platforms we can pay attention to for controversial topics, and the suspicious figures we should avoid for getting the correct information.
+    2) What are the most selected Topic/Subject picked by each Speaker 
+       which has the highest tendency of spreading Fake News?
+
+    3) Which are the states spreading maximum number of false counts, 
+       also noting the count of different speakers involved in 
+       spreading Fake News?
+  
+    4) The most prone Fake News method of communication, State Wise.
+
+    5) Correlation, Clusters & Outliers observed for different Mediums/Platforms 
+       in spreading Fake News for each State.
+
+    6) Count of  Words in Statment and its relationship with Label for the News. 
+
+
+Overall, through visualization, we have tried to find out the most reliable method of receiving correct information, which platforms we can pay attention to for controversial topics, and the suspicious figures we should avoid for getting the correct information.
+
+
+**References**
+
+1)  Ternion: An Autonomous Model for Fake News Detection - "Noman Islam, Asadullah Shaikh, Asma Qaiser, Yousef Asiri, Sultan Almakdi, Adel Sulaiman Verdah Moazzam and Syeda Aiman Babar".
+
+2) John A. Bernau, PHD - Research Blog on Text Analysis
