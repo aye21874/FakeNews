@@ -8,7 +8,6 @@ library(mi)
 library(extracat)
 library(dplyr)
 library(tidyverse)
-library(patchwork)
 library(ggplot2)
 library(mi)
 library(extracat)
@@ -32,9 +31,30 @@ library(tm)
 library(tidytext)
 library(viridis)
 library(sjmisc)
+library(gridExtra)
+library(parcoords)
+library(Lock5withR)
+library(htmltools)
+library(d3r)
+library(ggalluvial)
+library(wordcloud)
+library(usmap) #import the package
+library(treemap)
 ```
 
+**Cleaing Steps**
+
+1) The first step in the cleaning is to concatenate the 3 files. We merged the train, test and validate files into 1 file, fakeNewsClean.csv. We did this as the task was related to exploring data through visualization, and no modelling of data was required. The three files together will help us to have a better understanding of overall data distribution.
+
+2) In the process of generating new file, we also replaced ID Column with a new ID column consisting of numbers from 1 to number of rows in dataframe.
+
+
 ```{r}
+# Reading all three files
+# changing columnNames 
+# concatenating 
+# generating Unique-Id for each row. 
+
 df_test = read_tsv(file = 'test.tsv' )
 t = c("ID","Label","Statement","Subject(s)","Speaker","Speaker Job Title","State Info","The Party Affiliation","Barely True Counts","False Counts","Half True Counts","Mostly True Counts","Pants on Fire Counts","Venue/Location")
 colnames(df_test)<- as.vector(t)
@@ -56,7 +76,17 @@ fakeNews_df <- rbind(df_train,df_test,df_validate)
 fakeNews_df$ID <- seq.int(nrow(fakeNews_df))
 ```
 
+
+3) We saw most of the columns in the data had 2 rows missing. Taking a closer look, the rows with ID 5872, and 8180 had most of the columns missing. So we removed those 2 rows from the dataset. 
+
+4) For The columns Subject, SpeakerJobTitle, Speaker, Venue/Location, "The Party Affiliation", we choose to replace missing values with a new category "Unknown". This will be a new category helps us to understand where data was missing and how it is related to each questions. 
+
+**Below is the Projection of Missing values for each column for each column in the dataset.**
 ```{r}
+
+# Removed ID's 5872 and 8180
+# Replace all NA's for Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with "Unknown"
+
 colSums(is.na(fakeNews_df)) %>%
   sort(decreasing = TRUE)
 
@@ -68,7 +98,7 @@ fakeNews_df_transformed = fakeNews_df %>%
 
 cat("\n")
 print("Removing ID's 5872 and 8180 which had missing values for almost all columns")
-print("Replacing all NA's in Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with UNKNOWN")
+print("Replacing all NA's in Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with Unknown")
 cat("\n")
 cat("\n")
 
@@ -79,17 +109,12 @@ colSums(is.na(fakeNews_df_transformed)) %>%
 
 ```
 
-
-
 ```{r}
-
-#https://www.johnabernau.com/code/text_analysis/
 
 cleaningFakeNewsColumn <- function(inputColumn, nrows ) { 
   for (i in 1:nrows)
   {
     moby <- tolower(inputColumn[i]) # Lowercase
-    #print(moby)
     moby <- gsub("[[:punct:]]", "", moby) # Remove punctuation
     moby <- gsub("[[:digit:]]", "", moby) # Remove numbers
     moby <- gsub("\\s+", " ", str_trim(moby)) # Remove extra whitespaces
@@ -100,33 +125,122 @@ cleaningFakeNewsColumn <- function(inputColumn, nrows ) {
     vocab_nsw <- vocab[!(vocab) %in% stop_words$word] # Only keep non-stopwords
     moby_clean <- paste(vocab_nsw, collapse = " ") # Gather back into one string
     inputColumn[i] = moby_clean
-    #print(moby_clean) # Examining our cleaned text block
   }
   return(inputColumn)
 }
 
-cleanColumn = cleaningFakeNewsColumn(fakeNews_df_transformed$`Venue/Location`, nrow(fakeNews_df_transformed))
-fakeNews_df_transformed["Venue"]= cleanColumn
+cleanGroupFunction <- function(inputColumn, newColumn ) { 
+  
+  cleanColumn = cleaningFakeNewsColumn(inputColumn, nrow(fakeNews_df_transformed))
+  # It takes approximately 10min
+  newstring <- group_str(cleanColumn, precision = 3, strict = TRUE)
+  return(newstring)
+}
+```
+
+5) For columns Venue, Subject and SpeakerJobTitle, StateInfo, PartyAffiliation we followed the below steps for pre-processing
+
+For each sentence in the following column :- 
+  :- Converted each sentence  to lower case
+  :- Removed all Punctuations
+  :- Removed extra whitespaces
+  :- split the sentences into words by delimiter = " "
+  :- Removed Stop-Words  
+  :- Concatenated the words to form the sentence
+  
+6) For Venue, Subject and SpeakerJobTitle, we also did an extra step to group similar words together. For example Venue like Tweet, Tweets, Tweet! were all grouped into 1 group using **"group_str"** function. 
+
+7) Using all the steps we have created a new file, FakeNewsClean.csv which we will be using for taking insides to our questions.
+
+```{r}
+#It takes 10 min
+newColumn = cleanGroupFunction(fakeNews_df_transformed$`Venue/Location`)
+for(i in range((length(newColumn)+1)):11376)
+{
+  newColumn[i]="unknown"
+}
+fakeNews_df_transformed["Venue"]= newColumn[1:11376]
+
+#It takes 10 min
+newColumn = cleanGroupFunction(fakeNews_df_transformed$`Subject(s)`)
+for(i in range((length(newColumn)+1)):11376)
+{
+  newColumn[i]="unknown"
+}
+fakeNews_df_transformed["Subject"]= newColumn[1:11376]
+
+#It takes 10 min
+newColumn = cleanGroupFunction(fakeNews_df_transformed$`Speaker Job Title`)
+for(i in range((length(newColumn)+1)):11376)
+{
+  newColumn[i]="unknown"
+}
+fakeNews_df_transformed["SpeakerJobTitle"]= newColumn[1:11376]
+```
+
+
+```{r}
+#It takes 10 min
+
+cleanColumn = cleaningFakeNewsColumn(fakeNews_df_transformed$`State Info`, nrow(fakeNews_df_transformed))
+fakeNews_df_transformed["StateInfo"] = cleanColumn
+
+cleanColumn = cleaningFakeNewsColumn(fakeNews_df_transformed$`The Party Affiliation`, nrow(fakeNews_df_transformed))
+fakeNews_df_transformed["PartyAffiliation"]= cleanColumn
 
 ```
 
 ```{r}
-# It takes approximately 10min
-newstring <- group_str(fakeNews_df_transformed$Venue, precision = 3, strict = TRUE)
-print(length(newstring))
-
+fakeNews_df_transformed_clean = fakeNews_df_transformed
+drop <- c("Venue/Location","Subject(s)","Speaker Job Title","The Party Affiliation","State Info")
+fakeNews_df_transformed = fakeNews_df_transformed[,!(names(fakeNews_df_transformed) %in% drop)]
+write.csv(fakeNews_df_transformed,"FakeNews_Clean.csv", row.names = FALSE)
 ```
 
 
 ```{r}
-newstring[11375]="unknown"
-newstring[11376]="unknown"
-fakeNews_df_transformed["groupedVenue"] = newstring
+theme_fakeNews_rotate <- function(base_size = 14, ang=90) {
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = 13, face = "bold", margin = margin(0,0,5,0), hjust = 0),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = 13, face = "bold"),
+      axis.text.x = element_text(angle = ang, size = 13, face = "bold"),
+      axis.text.y = element_text(size = 13),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = 13, face = "bold"),
+      legend.text = element_text(size = 13, face = "bold")
+    )}
+
+theme_fakeNews <- function(base_size = 14) {
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = 13, face = "bold", margin = margin(0,0,5,0), hjust = 0),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = 13, face = "bold"),
+      axis.text.x = element_text(size = 13, face = "bold"),
+      axis.text.y = element_text(size = 13),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = 13, face = "bold"),
+      legend.text = element_text(size = 13, face = "bold")
+    )}
 ```
 
 
-```{r}
-write.csv(fakeNews_df_transformed,"FakeNewsUpdated.csv", row.names = FALSE)
-```
+References :-
+1) https://www.johnabernau.com/code/text_analysis/
+
+
+
 
 
