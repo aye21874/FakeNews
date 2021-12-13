@@ -99,7 +99,7 @@ fakeNews_df$ID <- seq.int(nrow(fakeNews_df))
     filter(!ID == 5872 & !ID == 8180)
 
     fakeNews_df_transformed[is.na(fakeNews_df_transformed)] = "unknown"
-```
+    ```
 
     **After Cleaning**
     
