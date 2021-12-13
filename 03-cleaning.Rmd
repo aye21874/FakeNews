@@ -86,26 +86,26 @@ fakeNews_df$ID <- seq.int(nrow(fakeNews_df))
 
     ```{r}
 
-# Removed ID's 5872 and 8180
-# Replace all NA's for Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with "Unknown"
+    # Removed ID's 5872 and 8180
+    # Replace all NA's for Subject, Speaker job Title, State Info, Venue/Location, Speaker, The Party Affiliation with "Unknown"
 
-colSums(is.na(fakeNews_df)) %>%
-  sort(decreasing = TRUE)
+    colSums(is.na(fakeNews_df)) %>%
+      sort(decreasing = TRUE)
 
-#Finding Rows which have Subjects, Speaker ... Pants on Fire Counts all zero
-missing = fakeNews_df[is.na(fakeNews_df$Speaker), ]  
+    #Finding Rows which have Subjects, Speaker ... Pants on Fire Counts all zero
+    missing = fakeNews_df[is.na(fakeNews_df$Speaker), ]  
 
-fakeNews_df_transformed = fakeNews_df %>% 
-  filter(!ID == 5872 & !ID == 8180)
+    fakeNews_df_transformed = fakeNews_df %>% 
+    filter(!ID == 5872 & !ID == 8180)
 
-fakeNews_df_transformed[is.na(fakeNews_df_transformed)] = "unknown"
+    fakeNews_df_transformed[is.na(fakeNews_df_transformed)] = "unknown"
 ```
 
     **After Cleaning**
     
     ```{r}
-colSums(is.na(fakeNews_df_transformed)) %>%
-sort(decreasing = TRUE)
+    colSums(is.na(fakeNews_df_transformed)) %>%
+    sort(decreasing = TRUE)
 
     ```
 
