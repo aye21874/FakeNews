@@ -73,10 +73,7 @@
 <li><a href="./">FakeNews</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-"><i class="fa fa-check"></i><b>1.1</b> Project:-</a></li>
-</ul></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
@@ -104,128 +101,43 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
-<p><strong>Dataset:-</strong></p>
-<p>Liar dataset is used for the fake news detection having 12,800 human labelled short statements in various contexts related to politics. The dataset is used as a fact-checking research and each statement is evaluated by the politifact.com editor for its truthfulness. Automatic fake news detection is a challenging problem in deception detection, and it has tremendous potential on real-world political and social impacts.</p>
-<p><strong>List of Features in Table</strong></p>
-<p>ID | Label | Statement | Subject | Speaker | Speaker Job Title | State Info | Party Affiliated | Total Credit History Count | Barely True Counts | False Counts | Half False Counts | Mostly True Counts | Fire Counts | Location/Venue</p>
-<p><strong>Missing values by column for the test liar dataset</strong></p>
+<p>Below are some key observations with respect to Missing Values in the dataset.</p>
+<p><strong>Missing values by column for the Liar dataset</strong></p>
 <pre><code>##     Speaker Job Title            State Info        Venue/Location 
-##                   266                   206                    13 
-##                    ID                 Label             Statement 
-##                     0                     0                     0 
+##                  3170                  2446                   110 
 ##            Subject(s)               Speaker The Party Affiliation 
-##                     0                     0                     0 
+##                     2                     2                     2 
 ##    Barely True Counts          False Counts      Half True Counts 
-##                     0                     0                     0 
-##    Mostly True Counts  Pants on Fire Counts 
+##                     2                     2                     2 
+##    Mostly True Counts  Pants on Fire Counts                    ID 
+##                     2                     2                     0 
+##                 Label             Statement 
 ##                     0                     0</code></pre>
-<ul>
-<li>It is important to note that Label column (independent feature) doesn’t have missing values for the test dataset.</li>
-<li>Most of the columns don’t have missing values</li>
-<li>Speaker Job Title has maximum missing values - 266</li>
-</ul>
-<p><strong>Top 20 row-id having maximum missing values</strong></p>
-<pre><code>## 279 539 708  12  23  24  27  33  41  43  50  51  71  73  81  90 101 106 113 114 
-##   3   3   3   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2</code></pre>
-<ul>
-<li>Here we observe that the maximum values missing per row was 3. Row_id 279 here has 3 features which has missing values</li>
-<li>Please note, we handpicked top 20 rows</li>
-</ul>
-<p><strong>Heatmap </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="768" /></p>
-<ul>
-<li>Since we noticed that “Speaker Job Title” and “State Info” has missing values, we used heatmaps to see if we can observe any pattern. Below is one of the following pattern we noticed :-
 <ol style="list-style-type: decimal">
-<li>For both “Speaker Job Title” and “State Info” feature, we saw following labels {True, Pants-Fire and False} to be completely missing.</li>
-</ol></li>
-</ul>
-<p>This means that if we group StateInfo &amp; Label and Speaker Job Title &amp; Label, then the groups having TRUE, PANTS-FIRE and FALSE Labels will be completely empty.</p>
-<p><strong>Ratio of Missing Values for each Label in Test dataset </strong></p>
-<pre><code>## # A tibble: 6 × 2
-##   Label       `Speaker Job Title`
-##   &lt;chr&gt;                     &lt;dbl&gt;
-## 1 barely-true               0.266
-## 2 false                     0.251
-## 3 half-true                 0.229
-## 4 mostly-true               0.224
-## 5 pants-fire                0.407
-## 6 true                      0.233</code></pre>
-<p><strong>Percentage of Missing Values for each Label in Test dataset </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<ul>
-<li><p>This graph ideally would have missed a feature if all the values were missing for it, but here for our dataset, we didn’t observe any feature for which all rows in the column were missing.</p></li>
-<li><p>In this graph, Speaker Job Title and State Info was quite evident, but at the same time, this graph also tells us that there were few values missing for the Venue/Location.</p></li>
-</ul>
-<pre><code>## [1] &quot;nothing&quot;                                      
-## [2] &quot;Speaker.Job.Title&quot;                            
-## [3] &quot;State.Info&quot;                                   
-## [4] &quot;Venue.Location&quot;                               
-## [5] &quot;Speaker.Job.Title, State.Info&quot;                
-## [6] &quot;Speaker.Job.Title, Venue.Location&quot;            
-## [7] &quot;Speaker.Job.Title, State.Info, Venue.Location&quot;</code></pre>
-<ul>
-<li>We notice the following pattern :-</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li>The maximum rows in dataset have none of the features missing.</li>
-<li>Next, we have a pattern for rows having Speaker Job Title and State Info missing</li>
-<li>Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.</li>
+<li><p>It is important to note that Label column (independent feature) doesn’t have missing values in the dataset.</p></li>
+<li><p>Most of the columns have 2 missing values, which after taking a closer look belongs to ID’s 5872 and 8180</p></li>
+<li><p>Speaker Job Title has maximum missing values - 3170</p></li>
 </ol>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
-<ul>
-<li>Following are the patterns observed :-
-Column-Wise</li>
-</ul>
+<p><strong>Top 30 row-id having maximum missing values</strong></p>
+<pre><code>##  5872  8180   921  1137  1274  2584  2834  3622  3645  4020  5845  6058  6279 
+##    11    11     3     3     3     3     3     3     3     3     3     3     3 
+##  6553  6603  8125  8172  8222  8952  9323  9583  9752 10096 10434 10667 10871 
+##     3     3     3     3     3     3     3     3     3     3     3     3     3 
+## 11120     3     8    13 
+##     3     2     2     2</code></pre>
 <ol style="list-style-type: decimal">
-<li>Missing Value Order :- Speaker Job Title &gt; State Info &gt; Venue/Location</li>
+<li>Maximum number of columns having missing values in a row are 11. For examples Id’s like 5872, 8180 etc. have 11 columns with missing values.</li>
 </ol>
-<p>Row-Wise Patterns
-1) The maximum rows in dataset have none of the features missing.
-2) Next, we have a pattern for rows having Speaker Job Title and State Info missing
-3) Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.</p>
-<ul>
-<li><p>Note, we imported this package from github - <a href="https://github.com/heike/extracat#installation" class="uri">https://github.com/heike/extracat#installation</a></p></li>
-<li><p>This is missing value plot for our dataset similar to the question2</p></li>
-<li><p>The first plot on the top shows % of missing value for each feature</p></li>
-<li><p>The second plot on the bottom (both left and right) and rigth) shows various pattern
-–&gt; Most of the rows in the dataset has no missing values
-–&gt; Next, we have a pattern for rows having Speaker Job Title and State Info missing
-–&gt; Next in order, we have rows which have only Speaker Job Title, only State Info and only Venue/Location missing.</p></li>
-</ul>
-<p><strong>Ratio of Missing Values for each “The Party Affiliation” in Test dataset </strong></p>
-<pre><code>## # A tibble: 16 × 3
-##    `The Party Affiliation` `Speaker Job Title` `State Info`
-##    &lt;chr&gt;                                 &lt;dbl&gt;        &lt;dbl&gt;
-##  1 activist                              0           0     
-##  2 business-leader                       0           0     
-##  3 columnist                             0.167       0.167 
-##  4 constitution-party                    0           0     
-##  5 county-commissioner                   0           0     
-##  6 democrat                              0.173       0.0896
-##  7 government-body                       1           0     
-##  8 independent                           0.167       0.0833
-##  9 journalist                            0.125       0.375 
-## 10 libertarian                           0.2         0.4   
-## 11 newsmaker                             1           0     
-## 12 none                                  0.545       0.693 
-## 13 organization                          0.895       0.474 
-## 14 republican                            0.184       0.0772
-## 15 state-official                        0           0     
-## 16 talk-show-host                        0           0.333</code></pre>
-<p><strong>Percentage of Missing Values for each Party Affiliation in Test dataset </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><strong>Heatmap </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
-<p>** Here we took another feature “The Party Affiliation” and using heatmap, tried noticing missing patterns for this feature.</p>
-<p>** The Speaker Job Title had completely missing values for the following “The Party Affiliation” feature[“Organization, none, newsmaker, journalist, government-body and democrat”]</p>
-<p>** The State Info was completly missing for the following “The Party Affiliation” feature [“none”, “journalist” and “democrat”]</p>
-<p><strong>Number of Missing Values of Speaker Job Title by State_Info grouped by Label</strong></p>
-<ul>
-<li><p>For most of the states, the label half-true and true have zero missing values</p></li>
-<li><p>Florida State has maximum missing values for the label missing true.</p></li>
-<li><p>Here we also had missing values in state, which we categorized has Unknown, which apparently together also has max missing values</p></li>
-</ul>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p>Since we noticed that “Speaker Job Title” and “State Info” had maximum missing values, we used heatmaps to see if we can observe any pattern. Below are the observed patterns :-</p>
+<ol style="list-style-type: decimal">
+<li><p>For “Speaker Job Title”, True &amp; False Staements were completely missing.</p></li>
+<li><p>For “State Info” feature, False Statements were completely missing.</p></li>
+</ol>
+<p><strong>Missing propotions</strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="2400" /></p>
 
 </div>
             </section>
