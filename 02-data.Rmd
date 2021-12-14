@@ -1,6 +1,8 @@
 # Data sources
 
-In the beginning of the semester, we participated in the Columbia Data Science Hackathon 2021 event, where we recieved the LIAR dataset. The topic and dataset of Fake News Detection intrigued us to reveal more insights on the relationship between dependendent and independent features. The Liar dataset has 12,800 human labeled short statements in various contexts related to politics and is evaluated by politifact.com for its truthfulness. Politifact is a fact-checking organization that selects topics in the news and assigns a score for each news reports and its corresponding statement.
+In the beginning of the semester, we participated in the Columbia Data Science Hackathon 2021 event, where we recieved the LIAR dataset. The topic and dataset of Fake News Detection intrigued us to reveal more insights on the relationship between dependendent and independent features. The Liar dataset has 12,800 human labeled short statements in various contexts related to politics and is evaluated by politifact.com for its truthfulness. 
+
+Politifact is a fact-checking non-profit organization. Everyday, journalists at Politifact reads transcripts, speeches, news stories, press releases, and campaign brochures.
 
 Below are the some useful links 
 

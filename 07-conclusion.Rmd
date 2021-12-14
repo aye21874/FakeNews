@@ -9,4 +9,4 @@ While venues such as social media and television makes the delivery of informati
 The issue with misinformation today should be a collaborative effort to verify sources to ensure that correct information is being delivered through most if not all sources. Everyone should be taking responsibility.
 
 
-Improvements for this project may include using a better natural language processing algorithm.
+Improvements for this project may include using a better natural language processing algorithm. It was difficult to group the subjects because each entry in the “Subjects” column was made up of permutations of multiple subjects. Even after splitting the permutations and preprocessing the individual words, there were too many subjects to visualise in a pleasing way. This could be improved on by grouping the subjects into a more broader context (like grouping taxes and government into political). For states, some graphs would have benefited by grouping them into regions (midwestern, southern, west, and east).
