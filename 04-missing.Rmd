@@ -234,11 +234,11 @@ colSums(is.na(df_missing)) %>%
 ```
 
 
-1) It is important to note that Label column (independent feature) doesn't have missing values in the dataset. 
+1) It is important to note that the Label column (independent feature) doesn't have missing values in the dataset. 
 
 2) Most of the columns have 2 missing values, which after taking a closer look belongs to ID's 5872 and 8180
 
-3) Speaker Job Title has maximum missing values - 3170
+3) Speaker Job Title has the most missing values - 3170 missing entries
 
 
 **Top 30 row-id having maximum missing values**
@@ -253,7 +253,7 @@ head(t,30)
 ```
 
 
-1) Maximum number of columns having missing values in a row are 11. For examples Id's like 5872, 8180 etc. have 11 columns with missing values.
+1) Maximum number of columns with missing values in a given row are 11. For examples Id's like 5872, 8180 etc. have 11 columns with missing values.
 
 
 ```{r echo=FALSE, message=FALSE, results='hide'} 
@@ -290,21 +290,26 @@ ggplot(df_pivot, aes(y = key, x =  fct_rev(Label), fill = missing)) +
   labs(title = "Missing Values for Features Faceted by Label",
        x = "Label Associated", y="Features in the Dataset") + theme_fakeNews()
 ```
-```{r}
-
-```
 
 
 
-Since we noticed that "Speaker Job Title" and "State Info" had maximum missing values, we used heatmaps to see if we can observe any pattern.     Below are the observed patterns :-
+Since we noticed that "Speaker Job Title" and "State Info" had maximum missing values, we used heatmaps to see if we can observe any pattern. Below are the observed patterns :-
 
   1) For "Speaker Job Title", True & False Staements  were completely missing.
   
   2) For "State Info" feature, False Statements were completely missing. 
 
-**Missing propotions**
+**Missing proportions**
 
 ```{r fig.width=17, fig.height=12}
 missingGraphPropotion(df_missing) 
 ```
+
+We created this missing values plots to identify any patterns for the rows. 
+
+  1) The majority of the rows have no missing values
+  2) Roughly 1800 rows have Speaker Job Title and State Info missing
+  3) Over 1000 rows only have Speaker Job Title missing, and roughly 500 rows only have State Info missing.
+  4) The rest of the patterns are hardly present.
+
 

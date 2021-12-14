@@ -43,9 +43,9 @@ library(treemap)
 
 **Below Steps were used for transforming the dataset**
 
-1) The first step in the cleaning is to concatenate the 3 files. We merged the train, test and validate files into 1 file, fakeNewsClean.csv. We did this as the task was related to exploring data through visualization, and no modelling of data was required. The three files together will help us to have a better understanding of overall data distribution.
+1) The first step in the cleaning is to concatenate the 3 files. We merged the train, test and validate files into 1 file, fakeNewsClean.csv. We did this as the task was related to exploring data through visualization, and no modeling of data was required. The three files together will help us to have a better understanding of overall data distribution.
 
-2) In the process of generating new file, we also replaced ID Column with a new ID column consisting of numbers from 1 to number of rows in dataframe.
+2) In the process of generating new file, we also replaced ID Column with a new ID column consisting of numbers from 1 to number of rows in the dataframe.
 
 
 ```{r}
@@ -82,7 +82,7 @@ write.csv(fakeNews_df,"FakeNews_Unclean.csv", row.names = FALSE)
 3) We saw most of the columns in the data had 2 rows missing. Taking a closer look, the **rows with ID 5872, and 8180** had most of the columns missing. So we removed those 2 rows from the dataset. 
 
 
-4) For The columns Subject, SpeakerJobTitle, Speaker, Venue/Location, "The Party Affiliation", we choose to replace missing values with a new category "Unknown". This will be a new category helps us to understand where data was missing and how it is related to each questions. 
+4) For The columns Subject, SpeakerJobTitle, Speaker, Venue/Location, and "The Party Affiliation", we choose to replace missing values with a new category "Unknown". This will be a new category helps us to understand where data was missing and how it is related to each questions. 
 
     **Below is the Projection of Missing values for each column for each column in the dataset.**
 
@@ -144,7 +144,7 @@ cleanGroupFunction <- function(inputColumn, newColumn ) {
 }
 ```
 
-5) For columns Venue, Subject and SpeakerJobTitle, StateInfo, PartyAffiliation we followed the below steps for pre-processing
+5) For columns Venue, Subject and SpeakerJobTitle, StateInfo, and PartyAffiliation we followed the below steps for pre-processing
 
     For each sentence in the following column :- 
     
@@ -157,9 +157,9 @@ cleanGroupFunction <- function(inputColumn, newColumn ) {
       
   
   
-6) For Venue, Subject and SpeakerJobTitle, we also did an extra step to group similar words together. For example Venue like Tweet, Tweets, Tweet! were all grouped into 1 group using **"group_str"** function. 
+6) For Venue, Subject and SpeakerJobTitle, we also did an extra step to group similar words together. For example, a venue like Tweet, Tweets, Tweet! were all grouped into 1 group using **"group_str"** function. 
 
-7) Using all the steps we have created a new file, FakeNews_Clean.csv which we will be using for taking insides to our questions.
+7) Using all the steps we have created a new file, FakeNews_Clean.csv which we will be used for discovering insights to our questions.
 
 
 ```{r}

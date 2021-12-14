@@ -136,7 +136,7 @@ fakeNews_df_transformed_true = filter(fakeNews_df_transformed, Label=="true"| La
 ```
 
 
-**Question 1 : Which positions of authority lead to Fake & Factual information? Which Party tends to spread Fake News More? **
+**Question 1: Which positions of authority lead to Fake & Factual information? Which party tends to spread Fake News more? **
 
 ```{r fig.height=12, fig.width=20}
 df_1 = fakeNews_df_transformed %>%
@@ -193,19 +193,19 @@ ggplot(df_5, aes(x=df_5$SpeakerJobTitle, y=df_5$Count))+
   theme_fakeNews_rotate()
 ```
 
-**Observation from Graph 1**
+**Observation from Graph 1.1**
 
-1) President, Governor & Senators from different Party are most popular "Speaker Job Titles" in spreading both Fake & Factual News.
+1) President, Governor and Senators spread the most news in all categories of truthfulness.
 
-2) The "President Elect" & "Predient Candidate" had almost equal counts for spreading Fake or Factual News
+2) The "President Elect" & "President Candidate" had very similar news counts throughout the truthfulness spectrum
 
-3) Senators from the Party lead the count for spreading information, for both Factual & Fake. The graph also demonstrates highest Pants-Fire count for Senators, deonting that they are the one's with most latest information related to Party.
+3) Senators from the Party lead the count for spreading information, for both Factual & Fake. The graph also demonstrates highest pants-fire count for Senators, demonstrating that they spread the most ridiculous claims out of all job titles in the graph.
 
-4) For any "Speaker Job Title", the counts for mostly-true labels were higher than the true.
+4) For all job titles, the counts for mostly-true news were higher than true news.
 
-5) House Officials have the least power in spreading Fake or Factual News.
+5) House Officials have had the least counts in spreading Fake or Factual News.
 
-6) The overall projects in counts for False and Barely True lead the other labels, signifying that almost all Speaker Job Titles from Graph spread high propotion of Fake News.
+6) The total count for pants-fire, false, barely-true, and half-true news is higher than the total count for mostly-true and true news, signifying that almost all job titles in the graph are associated with a  high proportion of Fake News.
 
 
 
@@ -219,7 +219,7 @@ df_8 = df_4 %>%
 t = c("SpeakerJobTitle","ThePartyAffiliation", "Label","Count")
 colnames(df_8)<- as.vector(t)
 
-df_9 = filter(df_8, Label == "false" | Label == "half-true")
+df_9 = filter(df_8, Label == "false" | Label == "true")
 
 df_10 = filter(df_9, ThePartyAffiliation=="independent" | ThePartyAffiliation=="republican" | ThePartyAffiliation=="democrat")
 
@@ -252,10 +252,10 @@ ggplot(df_10, aes(fill=Label, y=Count, x=SpeakerJobTitle)) +
 
 ```
 
-**Observation from Graph 2**
+**Observation from Graph 1.2**
 
-1) Republican Party is more prone towards  spreading Fake News.
-2) The Propotion of Half-True is more than False for almost all Speakers belonging to any party. This tells us that significane of some truth in any given statement is high.
+1) The proportion of true news is higher than the proportion of false news for the Democrat and Independent parties, with the opposite case for the Republican party. This tells us that the Democrat and Independent parties are a little bit more reliable in delivery of truthful news.
+2) There is false news present for most speakers in every party, albeit at different proportions. 
 
 
 **Question 2: What are the most selected topic/Subject picked by each Speaker which has the highest tendency of Spreading Fake News"**
@@ -320,20 +320,19 @@ ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) 
 
 **Observation from Graph**
 
-1) Senators have spread Fake News in highest propotion with respect to every topic demonstrated in graph
+1) Senators have spread the most Fake News with respect to every topic present in the graph
 
-2) President Candidate had Fake News only related to Immigration
+2) President Candidates have spread fake news only in Immigration
 
-3) President didn't had Fake News related to topics like Military, Abortion, Debts, Jobs, Economy,
+3) President didn't report Fake News related to topics in Military, Abortion, Debts, Jobs, and Economy.
 
-4) Only Senators and President had fake news related to topics :- Fires, Iraq, Israel, Islam, Foreign Policy, Fedral Budge, Energy.
+4) Only Senators and President had fake news related to topics in Fires, Iraq, Israel, Islam, Foreign Policy, Fedral Budge, and Energy.
 
-5) Education Subject had the highest count for fake news and the most selected topic by any speaker.
-
-2) The Propotion of Half-True is more than False for almost all Speakers belonging to any party. This tells us that significane of some truth in any given statement is high.
+5) Education has the highest count for fake news.
 
 
-**Question 3:- States Spreading maximum number of false counts, noting the count of different speakers involved in spreading Fake News**
+
+**Question 3: Which states are spreading the most false news, also noting the number of different speakers involved in spreading Fake News?**
 
 ```{r fig.width=13, fig.height=8}
 
@@ -379,20 +378,20 @@ treemap::treemap(df_83,
 
 **Observation from the Graphs**
 
-Above Graph gives a clear idea for the count of Fake News in each State. The larger the rectangle, the state had more number of Fake News Spread. The color is mapped with the different number of speakers involved in that state to spread Fake News.
+Above Graph gives a clear idea for the count of Fake News in each State. The larger the rectangle, the higher the number of Fake News was spread within the associated state. The color is mapped with the different number of speakers who spread fake news in the given state.
 
-1) There were lot of states in the dataset which were labelled Unknown while pre-processing, which apparently are also spreading Fake News in high propotions
+1) There were lot of states in the dataset which were labelled Unknown while pre-processing, which apparently are also spreading Fake News in high proportions
 
 2) Texas is most widely known state to spread Fake News with about 400+ different Speakers involved in spreading Fake News
 
-3) Count of Fake News Spread is closely related with the different number of Speakers spreading the news. North Carolina, Tennessee, Colorado, Alaska etc, which share the same size, have least number of different speakers observed.
+3) Count of Fake News spread is closely related with the different number of Speakers spreading the news. States with a smaller number of false counts have fewer number of speakers.
 
-4)  New York, Wisconsin and Florida have almost equal number of counts in spreading Fake News, which are compartively high when compare to other states. Also, Wisconsin and New York share the same count for number of speakers but the Florida has most number of different speakers among the 3, spreading the Fake News.
-
-
+4)  New York, Wisconsin and Florida have almost equal number of counts in spreading Fake News, which are comparatively high when compare to other states. Also, Wisconsin and New York share the same count for number of speakers but the Florida has highest number of different speakers among the three.
 
 
-**Question 4 :- The Most Prone Fake News Method of communication, State Wise **
+
+
+**Question 4: Which method of communication has resulted in the most Fake News spread by state? **
 
 ```{r fig.width=25 , fig.height=10}
 
@@ -464,19 +463,19 @@ ggplot(data=df_54, aes(x=long, y=lat, fill=GroupedVenue, group=region)) +
 
 **Observation from Graph**
 
-Below are the few names of venues (platforms) state wise which were used maximum times to spread fake news
+Below are a few venues/platforms which were used the most to spread fake news per State.
 
-1) Florida, Texas, California, Indiana, Maryland, Missouri, North Carolina mostly uses Press Release as the mediumn for fake news.
+1) Florida, Texas, California, Indiana, Maryland, Missouri, and North Carolina mostly spread Fake News through Press Releases.
 
-2) Georgia, Illinois, Pennsylvania, Virginia mostly uses Speeches as the medium for fake news.
+2) Georgia, Illinois, Pennsylvania, Virginia mostly spread Fake News through Speeches.
 
-3) Since the states map imported from library had more states than the states present in our dataframe, we obderved NA in the graph. We didn't had the information related to "most widely platforms used" to spreak fake news.
+3) Many states used a variety of venues to spread fake news, rather than just one consistent venue. Hence the gray spots in the graph.
 
-4) Our Grouping of Venue Like Tweets/Tweet to Tweet might not be that accurate as we have used group_str to do the concatenation with the distance of similarity as 3 between words. This parameter can be manipualated for better efficiency.
+4) Our grouping of the Venues (such as Tweets/Tweet to Tweet) might not be completely accurate since we used group_str to do the concatenation with the distance of similarity as 3 between words. This parameter can be manipulated for better efficiency.
 
 
 
-**Question 5:- Correlation, Clusters & Outliers observed for different Mediums/Platforms in spreading Fake News for each State **
+**Question 5: Correlations, Clusters & Outliers observed for different Venues/Platforms in spreading Fake News for each State. **
 
 
 ```{r fig.width=17, fig.height=10 }
@@ -514,7 +513,7 @@ for (row in 1:nrow(df_63)) {
 t = c("Region","Online Interview","Press Release","News Release","TV Advertisement","Speeches","News Conferences","Radio Interview","Tweets", "TV Interview","Row_Wise_Mean")
 colnames(df_63)<- as.vector(t)
 
-ggparcoord(df_63, columns =2:10, scale = "globalminmax", groupColumn = 1)  + theme_fakeNews() + xlab("Platform Used for fake news") + ylab("Count for total number of times platform was used to spread Fake News")
+ggparcoord(df_63, columns =2:10, scale = "globalminmax", groupColumn = 1)  + theme_fakeNews() + xlab("Venue used to spread Fake News") + ylab("Frequency of Fake News")
 
 
 # df_63[,1:10]  %>%
@@ -538,19 +537,19 @@ ggparcoord(df_63, columns =2:10, scale = "globalminmax", groupColumn = 1)  + the
 
 **Observation from the Graphs**
 
-1) The count for OnlineInterview Medium for spreading Fake News was mostly less (<10) for most of the regions, except Wisconsin, Texas and Florida.
+1) The count of Fake News spread for the venue OnlineInterview was less than 10 for all regions except Wisconsin, Texas and Florida.
 
-2) Most of the States, who have used Press Release for spreading Fake News, have also used News Release. We observed Positive Correlation between these two mediums for almost all the regions
+2) Most of the States, which have used Press Release for spreading Fake News, have also used News Release. We observed a positive correlation between these two venues for most States
 
-3) Similarly, we noticed negative correlation between News Release and TV Advertisement. Those states which have used News Release have a reduce count for the TV Advertisement
+3) Similarly, we noticed a negative correlation between News Release and TV Advertisement. The states which have used News Release have a reduced count for TV Advertisements
 
-4) We noticed wide range of differences in count between New York & Jersey for each above mentioned platform in graohw which suggest different political administration.
+4) We noticed a wide range of differences in count between New York & Jersey for each venue.
 
-5) Even Twitter, the most popular online social platform waas not used as the medium to spread Fake News for these states.
+5) Surprisingly, Twitter had relatively low frequencies for each State despite being the most popular social media platform.
 
 
 
-**Question 6: Count of  Words in Statment and its relationship with Label for the News**
+**Question 6: Count of Words in a Statement in relation with its Label**
 
 
 ```{r fig.width=12, fig.height=10}
@@ -643,11 +642,11 @@ ggplot(df_24, aes(x = Count, y = reorder(SpeakerJobTitle, Count))) +
 
 **Observation from the Graphs**
 
-For Statements between 100 and 1000 Words,
+Note: the statements shown on the graph are between 100 and 1000 words.
 
-1) The propotion for the True Labels are high with the word counts less than 300 in the statements made by any speaker
+1) For most speakers, there are more true than false statements given that they have less than 300 words.
 
-2) All Speakers had False Count in more propotion over True Count.
+2) For statements with over 300 words, there is a higher count of true statements compared to false statements.
 
 
 ```{r}
@@ -655,7 +654,7 @@ df_fakeNews = read_csv("FakeNews_andrew.csv")
 ```
 
 
-**Question  7 : What are the proportions of fake news for each state?**
+**Question 7: What are the proportions of fake news for each state?**
 
 
 ```{r fig.width=13, fig.height=30}
@@ -716,7 +715,7 @@ ggplot(aes(fill = factor(Label, levels = lvl), y = Count, x = reorder(StateInfo,
 
 
 
-**Question  8 : What are the states with maximum proportions of fake news and in what subject?**
+**Question 8: What are the states with maximum proportions of fake news and in what subject?**
 
 ```{r fig.width=13}
 # Reference: https://stackoverflow.com/questions/32578082/r-how-to-replace-value-of-a-variable-conditionally
@@ -790,7 +789,7 @@ dff %>%
 ```
 
 **Observation from the Graphs**
-Note: news reports that are labelled with pants-on-fire, false, barely-true, or half-true are considered not factual. Factual news are either mostly-true or true.
+Note: news reports that are labelled with pants-on-fire, false, barely-true, or half-true are considered not factual. Factual news are either mostly-true or true. The legend shows the order of truth values, which we will call the truth spectrum
 
 1) Alabama is the most misinformative state and Conneticut is the most informative.
 
@@ -801,7 +800,7 @@ Note: news reports that are labelled with pants-on-fire, false, barely-true, or 
 4) Apart from the top 5 and bottom 3 states, there does not seem to be a particular region associated with misinformation spread by state
 
 
-**Question  9 : Distribution of Factual News with respect to state**
+**Question 9: Distribution of Factual News with respect to state**
 
 ```{r}
 dfl <- df_f3
@@ -821,9 +820,9 @@ ggplot(dfl, aes(x = Label, y = reorder(State.Info, -Label, median))) +
   theme_ben2(ang=0)
 ```
 **Observation from the Graphs**
-Note: Each label was assigned a score, from 0 for pants-fire to 5 for true
+Note: Each label was assigned a score: 0 for "pants-on-fire", 1 for "false", 2 for "barely-true", 3 for "half-true", 4 for "mostly-true", and 5 for "true"
 
-1) Most states either have a very flat or bimodal distribution. This is consistent with the graph in question 7, where most states have news reports that range throughout the entire truth spectrum.
+1) Most states either have a very flat, bimodal, or multimodal distribution. This indicates that most states have news reports that range through multiple points in the truth spectrum, which is consistent with the graph in question 7.
 
 2) The top 2 most honest states by median (Wyoming and North Dakota in this case) have most of their distribution around the score of 5.
 
@@ -831,7 +830,7 @@ Note: Each label was assigned a score, from 0 for pants-fire to 5 for true
 
 
 
-**Question  10 : Which subject has the most concentrated fake news?**
+**Question 10: Which subject has the most concentrated fake news?**
 
 ```{r fig.width=13}
 txt <- data_frame(Text = encoded$`Subject(s)`, Label=encoded$`Label`) %>%
@@ -885,7 +884,7 @@ Note: a news report is considered fake news if it is either pants-on-fire, false
 
 
 
-**Question  11 : *Origin of Fake Vs Factual News with respect to Venue, Party & Job Title**
+**Question 11: Origin of Fake Vs Factual News with respect to Venue, Party & Job Title**
 
 
 ```{r fig.width=8}
@@ -903,7 +902,7 @@ df <- df %>%
 
 false = c("barely-true", "false", "pants-fire", "half-true")
 true = c("true", "mostly-true")
-df$Label <- with(df, ifelse(Label %in% false, "FakeNews!", Label))
+df$Label <- with(df, ifelse(Label %in% false, "Not entirely factual", Label))
 df$Label <- with(df, ifelse(Label %in% true, "Factual", Label))
 
 df <- df %>%
@@ -935,5 +934,5 @@ df %>%
 
 2) For every type of venue, party, and job title, at least half of the news reports are not entirely true
 
-3) As seen in the Label column, most news reports in this entire graph are not entirely true
+3) As seen in the Label column, most news reports made in this graph are not entirely true
 

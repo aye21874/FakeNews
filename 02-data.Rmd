@@ -1,10 +1,10 @@
 # Data sources
 
-In the beginning of the semester, we participated in the columbia data science hackathon event, where we recieved the LIAR dataset. The topic of Fake News Detection and the dataset intrigued us to find more insides on the relationship between dependendent and independent features. The Liar dataset have 12,800 human labelled short statements in various context related to politics and it is evaluated by the politifact.com editor for its truthfulness. 
+In the beginning of the semester, we participated in the Columbia Data Science Hackathon 2021 event, where we recieved the LIAR dataset. The topic and dataset of Fake News Detection intrigued us to reveal more insights on the relationship between dependendent and independent features. The Liar dataset has 12,800 human labeled short statements in various contexts related to politics and is evaluated by politifact.com for its truthfulness. Politifact is a fact-checking organization that selects topics in the news and assigns a score for each news reports and its corresponding statement.
 
 Below are the some useful links 
 
-1) Columbia Data Science Hackathon Page ‘ 2021 - https://cdssatcu.com/2021-data-science-hackathon
+1) Columbia Data Science Hackathon Page (2021) - https://cdssatcu.com/2021-data-science-hackathon
 
 2) Actual Dataset - https://www.cs.ucsb.edu/~william/data/liar_dataset.zip
 
@@ -14,19 +14,19 @@ Below are the some useful links
 
 **1) ID** - Unique Row ID associated for each Statement.
 
-**2) Label** - Statements were "True", "False", "Barely-True", "Half-True", "Mostly-True", "Pants-Fire".
+**2) Label** - Truthfulness of statements: "True", "False", "Barely-True", "Half-True", "Mostly-True", "Pants-Fire".
 
 **3) Statement** - Sentences of words varying between 5 to 5000.
 
-**4) Subject** - The topic related to Statement. Like HealthCare, Jobs Etc.
+**4) Subject** - The topic related to Statement (ex: healthcare, jobs, economy, etc).
     
 **5) Speaker** - The person who has given the statement.
 
-**6) SpeakerJobTitle** - The title associated with the speaker. Like Preisdent, Governor etc.
+**6) SpeakerJobTitle** - The job title associated with the speaker (ex: president, attorney, etc).
 
 **7) StateInfo** - The state where the statement was made.
 
-**8) Party Affiliated** - The party the speaker belong to. Like Republican, Democratic, Independent.
+**8) Party Affiliated** - The party the speaker belongs to (ex: republican, democrat, independent, etc).
 
 **9) Barely True Counts** - The accumulation of Barely True counts associated with Speaker.
 
@@ -38,6 +38,6 @@ Below are the some useful links
 
 **13) Pants Fire Counts** - The accumulation of Pants Fire Counts associated with Speaker.
 
-**14) Venue/Location** - The Medium through which News was Spread. Like Television, Radio etc. 
+**14) Venue/Location** - The medium through which news was Spread (ex: television, radio, news press, speech, etc)
      
   

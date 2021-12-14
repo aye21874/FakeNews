@@ -33,7 +33,7 @@
   
 <link rel="prev" href="data-transformation.html"/>
 <link rel="next" href="results.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -114,9 +114,9 @@
 ##                 Label             Statement 
 ##                     0                     0</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>It is important to note that Label column (independent feature) doesn’t have missing values in the dataset.</p></li>
+<li><p>It is important to note that the Label column (independent feature) doesn’t have missing values in the dataset.</p></li>
 <li><p>Most of the columns have 2 missing values, which after taking a closer look belongs to ID’s 5872 and 8180</p></li>
-<li><p>Speaker Job Title has maximum missing values - 3170</p></li>
+<li><p>Speaker Job Title has the most missing values - 3170 missing entries</p></li>
 </ol>
 <p><strong>Top 30 row-id having maximum missing values</strong></p>
 <pre><code>##  5872  8180   921  1137  1274  2584  2834  3622  3645  4020  5845  6058  6279 
@@ -126,18 +126,18 @@
 ## 11120     3     8    13 
 ##     3     2     2     2</code></pre>
 <ol style="list-style-type: decimal">
-<li>Maximum number of columns having missing values in a row are 11. For examples Id’s like 5872, 8180 etc. have 11 columns with missing values.</li>
+<li>Maximum number of columns with missing values in a given row are 11. For examples Id’s like 5872, 8180 etc. have 11 columns with missing values.</li>
 </ol>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><strong>Heatmap </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
 <p>Since we noticed that “Speaker Job Title” and “State Info” had maximum missing values, we used heatmaps to see if we can observe any pattern. Below are the observed patterns :-</p>
 <ol style="list-style-type: decimal">
 <li><p>For “Speaker Job Title”, True &amp; False Staements were completely missing.</p></li>
 <li><p>For “State Info” feature, False Statements were completely missing.</p></li>
 </ol>
-<p><strong>Missing propotions</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="1632" /></p>
+<p><strong>Missing proportions</strong></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="1632" /></p>
 
 </div>
             </section>
