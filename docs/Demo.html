@@ -1,0 +1,353 @@
+<html>
+<head>
+	<title>FakeNews</title>
+	<style type="text/css">
+	.select {
+	  margin: 0;
+	  position: absolute;
+	  left: 120%;
+	  -ms-transform: translate(-50%, -50%);
+	  transform: translate(-50%, -50%);
+	}
+	</style>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<!--https://www.freecodecamp.org/news/learn-d3-js-in-5-minutes-c5ec29fb0725/-->
+<body>
+<script>
+    w = 200
+	h = 200
+	var data = ["barack-obama","donald-trump","hillary-clinton","mitt-romney","scott-walker","john-mccain","rick-perry","rick-scott","marco-rubio","ted-cruz"]
+	var svg = d3.select("body")
+				.append("svg")
+				.attr("width", w)
+				.attr("height", h);
+	barHeight = 20
+	
+	
+	
+	function loader(name){
+	d3.csv("https://raw.githubusercontent.com/aye21874/FakeNews/main/top_speakers.csv", d => ({
+		speaker : d.Speaker,
+		party : d['The.Party.Affiliation'],
+		bt : +d['p_bt'],
+		f : +d['p_fc'],
+		ht : +d['p_ht'],
+		mt : +d['p_mt'],
+		pt : +d['p_pfic']
+		}))
+		.then(function(data){
+		
+		/*wow = d3.nest()
+		.key(d => d.speaker)
+		.rollup(v => d3.sum(v,d => d.bt + d.f + d.ht + d.mt + d.pt))
+		.entries(data)
+		*/
+		//new_data = [
+		chosen = data.filter(element => element.speaker == name)[0]
+		console.log(chosen)
+		/*
+		new_data = new Object()
+		for (const [key, value] of Object.entries(chosen)) {
+		  new_data[key] = value;
+		}
+		*/
+		console.log(Object.keys(chosen))
+		
+		new_data = Object.keys(chosen)
+		.map(function(key){
+			wow = {}
+			full = {'party':'party','speaker':'speaker','bt':'Barely True Counts','f':'False Counts','ht':'Half True Counts','mt':'Mostly True Counts','pt':'Pants on Fire Counts'}
+			wow['group'] =  full[key]
+			wow['value'] =	chosen[key]
+			return wow
+		}
+		);
+		rem = {'party':'party','speaker':'speaker'}
+		new_data = new_data.filter(element => !(element.group in rem))
+		console.log(new_data)
+		var margin = {top: 100, right: 50, bottom: 70, left: 100},
+		width = 1000 - margin.left - margin.right,
+		height = 1000 - margin.top - margin.bottom;
+
+		// append the svg object to the body of the page
+		d3.select("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+			.attr("transform",
+				  "translate(" + margin.left + "," + margin.top + ")");
+
+		// X axis
+		var x = d3.scaleBand()
+		  .range([ 0, width ])
+		  .domain(new_data.map(function(d) { return d.group; }))
+		  .padding(0.2);
+		  
+		svg.append("g")
+		  .attr("transform", "translate(" + 50 + "," + height + ")")
+		  .call(d3.axisBottom(x))
+
+		// Add Y axis
+		var y = d3.scaleLinear()
+		  .domain([0, 1500])
+		  .range([ height, 0])
+		  
+		  
+		svg.append("g")
+		  .attr("class", "myYaxis")
+		  .attr("transform", "translate(" + 50 + ", 0)")
+		  .call(d3.axisLeft(y));
+		  
+	
+
+		var u = svg.selectAll("rect")
+			.data(new_data)
+
+		  u
+			.enter()
+			.append("rect")
+			.merge(u)
+			.transition()
+			.duration(1000)
+			  .attr("x", function(d) { return x(d.group); })
+			  .attr("y", function(d) { return y(d.value); })
+			  .attr("width", x.bandwidth())
+			  .attr("height", function(d) { return height - y(d.value); })
+			  .attr("fill", "#69b3a2")
+			  .attr("transform", "translate(" + 50 + ", 0)")
+		
+		svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", (height / 10))
+        .attr("text-anchor", "middle")
+		.attr("id","speakerparty")	
+        .style("font-size", "16px") 
+        .style("text-decoration","")  
+        .text(chosen['speaker']+" belongs to " +chosen['party']+" party, whose history is:" );
+		
+		
+		d3.select("#speakerparty")
+		.on("click", function(){
+		console.log(name)
+		d3.select("#speakerparty").remove()
+		d3.selectAll('g').remove()
+		d3.selectAll('rect').remove()
+		loader2(name)
+		//window.location.reload();
+		});
+		})
+		/*
+		.catch(function(error) {
+  
+		// error handling 
+		console.log("hello")
+  
+		});*/
+		
+		
+		  
+		  
+		
+		
+		
+	}
+	
+	
+	function loader2(name){
+		d3.csv("https://raw.githubusercontent.com/aye21874/FakeNews/main/top_speakers.csv", d => ({
+		speaker : d.Speaker,
+		party : d['The.Party.Affiliation'],
+		statement : d.Statement,
+		label : d.Label,
+		bt : +d['Barely.True.Counts'],
+		f : +d['False.Counts'],
+		ht : +d['Half.True.Counts'],
+		mt : +d['Mostly.True.Counts'],
+		pt : +d['Pants.on.Fire.Counts'],
+		place : d['Venue.Location']
+		}))
+		.then(function(data){
+			chosen = data.filter(element => element.speaker == name)[0]
+			console.log(chosen)
+			new_data = Object.keys(chosen)
+						.map(function(key){
+							wow = {}
+							full = {'place':'place','label':'label','statement':'statement','party':'party','speaker':'speaker','bt':'Barely True Counts','f':'False Counts','ht':'Half True Counts','mt':'Mostly True Counts','pt':'Pants on Fire Counts'}
+							wow['group'] =  full[key]
+							wow['value'] =	chosen[key]
+							return wow
+						}
+						);
+			rem = {'party':'party','speaker':'speaker','statement':'statement','label':'label','place':'place'}
+			new_data = new_data.filter(element => !(element.group in rem))
+			console.log(new_data)
+			
+			
+			var margin = {top: 100, right: 50, bottom: 70, left: 100},
+			width = 1000 - margin.left - margin.right,
+			height = 1000 - margin.top - margin.bottom;
+			
+			d3.select("svg")
+			.append("g")
+			.attr("transform",
+				  "translate(" + margin.left + "," + margin.top + ")");
+			
+			var x = d3.scaleBand()
+			  .range([ 0, width ])
+			  .domain(new_data.map(function(d) { return d.group; }))
+			  .padding(0.2);
+			
+			svg.append("g")
+				.attr("transform", "translate(" + 50 + "," + height + ")")
+				.call(d3.axisBottom(x))
+			  
+			
+			var y = d3.scaleLinear()
+			  .domain([0, 200])
+			  .range([ height, 0]);
+			  
+				svg.append("g")
+				.attr("class", "myYaxis")
+				.attr("transform", "translate(" + 50 + ", 0)")
+				.call(d3.axisLeft(y));
+			
+			var u = svg.selectAll("rect")
+			.data(new_data)
+			
+			
+
+		  u
+			.enter()
+			.append("rect")
+			.merge(u)
+			.transition()
+			.duration(1000)
+			  .attr("x", function(d) { return x(d.group); })
+			  .attr("y", function(d) { return y(d.value); })
+			  .attr("width", x.bandwidth())
+			  .attr("height", function(d) { return height - y(d.value); })
+			  .attr("fill", "#69b3a2")
+			  .attr("transform", "translate(" + 50 + ", 0)")
+			  
+			  
+			svg.append("text")
+				.attr("x", (width / 2))             
+				.attr("y", (height / 10))
+				.attr("text-anchor", "middle")
+				.attr("id","speakerparty")	
+				.style("font-size", "16px") 
+				.style("text-decoration","")  
+				.text(chosen['speaker']+"'s past history of statments are: " );
+				
+			d3.select("#speakerparty")
+			.on("click", function(){
+			console.log(name)
+			d3.select("#speakerparty").remove()
+			d3.selectAll('g').remove()
+			d3.selectAll('rect').remove()
+			loader3(name,data)
+			
+		})
+		})
+	}
+	
+	function loader3(name,data){
+		chosen = data.filter(element => element.speaker == name)
+		
+		var item = chosen[Math.floor(Math.random()*chosen.length)]
+		console.log(item)
+		
+		var margin = {top: 0, right: 0, bottom: 0, left: 0},
+			width = 1400
+			height = 300
+			
+		d3.select("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+			.attr("transform",
+				  "translate(" + margin.left + "," + margin.top + ")");
+		
+		svg.append("text")
+				.attr("x", (width / 2))             
+				.attr("y", (height / 10))
+				.attr("text-anchor", "middle")
+				.attr("id","speakerparty")	
+				.style("font-size", "16px") 
+				.style("text-decoration","")  
+				.text(item['speaker']+"'s said this:\n ")
+				.append('svg:tspan')
+				.attr('x', (width / 2))
+				.attr('dy', 20)
+				.text(item['statement'])
+				.append('svg:tspan')
+				.attr('x', (width / 2))
+				.attr('dy', 20)
+				.text("at")
+				.append('svg:tspan')
+				.attr('x', (width / 2))
+				.attr('dy', 20)
+				.text(item['place'])
+				.append('svg:tspan')
+				.attr('x', (width / 2))
+				.attr('dy', 20)
+				.text("Did the speaker's statement seem true!? Select from the options below to find out!")
+		//d3.select("body").append("div")
+		//d3.select("div").html("<button id =\"wrapper\" class=\"center\">Click Me!</button>")
+		
+		var names = ["Barely True", "False", "Half True","Mostly True","Pants on Fire"];
+		d3.select("body").append("div")
+		var select = d3.select('div')
+		  .append('select')
+			.attr('class','select')
+			.on('change',onchange)
+		var options = select
+		  .selectAll('option')
+			.data(names).enter()
+			.append('option')
+		.text(function (d) { return d; });
+		
+		function onchange(){
+		
+			var dict = {"Barely True":"barely-true", "False":"FALSE", "Half True" : "half-true","Mostly True":"mostly-true","Pants on Fire":"pants-fire"};
+			selectValue = d3.select('select').property('value')
+			console.log(dict[selectValue])
+			if(dict[selectValue] == item['label']){
+				alert('You are correct!')
+			}
+			else{
+				alert('You are Wrong! The correct answer is:'+ item['label'])
+			}
+			window.location.reload();
+			
+		}
+
+
+	}
+		
+	var bar = d3.select('svg')
+          .selectAll('text')	
+          .data(data)
+          .enter()
+          .append('text')
+		  .text(d => d)
+          .attr('x', 10)
+          .attr('y', barHeight - 1)
+          .attr('transform', function(d, i) {
+            return "translate(0," + i * barHeight + ")";
+          });
+
+	d3.selectAll("text")
+	.on("click", function(){
+	name = d3.select(this).text()
+	console.log(name)
+	d3.selectAll('text').remove()
+	loader(name)
+	//window.location.reload();
+	});
+	
+	
+</script>
+</body>
+</html>

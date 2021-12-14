@@ -1,3 +1,30 @@
 # Interactive component
 
+---
+title: Habits
+author: John Doe
+date: March 22, 2005
+output: html_document
+---
 
+```{r}
+
+#fakenews = read.csv(file = 'DataFakeNews.csv')
+
+
+#Removing Chain Email from list of speakers
+#fakenews = fakenews[!(fakenews$Speaker == "chain-email"),]
+```
+
+
+
+```{r}
+#Taking the speakers with the top 10 fake statements
+#wow = fakenews %>% distinct(Speaker,.keep_all = TRUE) %>%  group_by(The.Party.Affiliation)
+#pow = wow %>% summarise(Speaker = Speaker, p_bt = sum(Barely.True.Counts), p_fc = sum(False.Counts), p_ht = #sum(Half.True.Counts), p_mt = sum(Mostly.True.Counts), p_pfic = sum(Pants.on.Fire.Counts))
+#fakenews_1 = fakenews %>% mutate(Ts = rowSums(.[10:14]))
+#final = inner_join(pow,fakenews_1,by = c("Speaker","The.Party.Affiliation"))
+
+```
+
+<iframe src="Demo.html" width="600" height="600"></iframe>
