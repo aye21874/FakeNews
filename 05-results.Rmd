@@ -80,7 +80,7 @@ theme_fakeNews <- function(base_size = 14) {
     )}
 
 #Reference : https://benjaminlouis-stat.fr/en/blog/2020-05-21-astuces-ggplot-rmarkdown/
-#Reference for legend size: https://www.statology.org/ggplot2-legend-size/ 
+#Reference for legend size: https://www.statology.org/ggplot2-legend-size/
 
 theme_ben <- function(base_size = 14, ang=90) {
   theme_bw(base_size = base_size) %+replace%
@@ -125,25 +125,25 @@ theme_ben2 <- function(base_size = 10, ang = 90, add=0) {
 ```{r}
 
 # Reading from the file
-# Filtering based on the Label. 
-# Created 2 dataframes, 
-    # One for fake news (grouped by Label["false","half-true","pants-fire","barely-true"]) 
+# Filtering based on the Label.
+# Created 2 dataframes,
+    # One for fake news (grouped by Label["false","half-true","pants-fire","barely-true"])
     # and other one for Factual News (grouped by Label["True", "Mostly-True"])
 
 fakeNews_df_transformed = read_csv(file = 'FakeNews_Clean.csv' )
 fakeNews_df_transformed_false = filter(fakeNews_df_transformed, Label=="false"| Label =="barely-true" | Label=="half-true" | Label=="pants-fire")
-fakeNews_df_transformed_true = filter(fakeNews_df_transformed, Label=="true"| Label =="mostly-true") 
+fakeNews_df_transformed_true = filter(fakeNews_df_transformed, Label=="true"| Label =="mostly-true")
 ```
 
 
 **Question 1 : Which positions of authority lead to Fake & Factual information? Which Party tends to spread Fake News More? **
 
 ```{r fig.height=12, fig.width=20}
-df_1 = fakeNews_df_transformed %>% 
-        group_by(fakeNews_df_transformed$SpeakerJobTitle) %>% 
+df_1 = fakeNews_df_transformed %>%
+        group_by(fakeNews_df_transformed$SpeakerJobTitle) %>%
         dplyr::summarise(n = n()) %>%
         arrange(desc(n)) %>%
-        filter(n>=100) 
+        filter(n>=100)
 
 
 t = c("SpeakerJobTitle","Count")
@@ -182,8 +182,8 @@ df_5$SpeakerJobTitle=  df_5$SpeakerJobTitle %>% recode(
                       "senator, senators" = "Sentators",
                       "congress, congressman, congressman ny, congresswoman" = "Congress",
                       "representative, representativej" = "Representative")
-                      
-          
+                     
+         
 #Do high positions of authority lead to misleading information - based on the distribution of data in dataset ?
 
 ggplot(df_5, aes(x=df_5$SpeakerJobTitle, y=df_5$Count))+
@@ -195,17 +195,17 @@ ggplot(df_5, aes(x=df_5$SpeakerJobTitle, y=df_5$Count))+
 
 **Observation from Graph 1**
 
-1) President, Governor & Senators from different Party are most popular "Speaker Job Titles" in spreading both Fake & Factual News. 
+1) President, Governor & Senators from different Party are most popular "Speaker Job Titles" in spreading both Fake & Factual News.
 
 2) The "President Elect" & "Predient Candidate" had almost equal counts for spreading Fake or Factual News
 
-3) Senators from the Party lead the count for spreading information, for both Factual & Fake. The graph also demonstrates highest Pants-Fire count for Senators, deonting that they are the one's with most latest information related to Party. 
+3) Senators from the Party lead the count for spreading information, for both Factual & Fake. The graph also demonstrates highest Pants-Fire count for Senators, deonting that they are the one's with most latest information related to Party.
 
 4) For any "Speaker Job Title", the counts for mostly-true labels were higher than the true.
 
-5) House Officials have the least power in spreading Fake or Factual News. 
+5) House Officials have the least power in spreading Fake or Factual News.
 
-6) The overall projects in counts for False and Barely True lead the other labels, signifying that almost all Speaker Job Titles from Graph spread high propotion of Fake News. 
+6) The overall projects in counts for False and Barely True lead the other labels, signifying that almost all Speaker Job Titles from Graph spread high propotion of Fake News.
 
 
 
@@ -243,10 +243,10 @@ knitr::opts_chunk$set(
  out.width = "80%"
 )
 # Stacked
-ggplot(df_10, aes(fill=Label, y=Count, x=SpeakerJobTitle)) + 
-  geom_bar(position="stack", stat="identity") + 
+ggplot(df_10, aes(fill=Label, y=Count, x=SpeakerJobTitle)) +
+  geom_bar(position="stack", stat="identity") +
   xlab("Speaker Job Title") +
-  ylab("Count for Fake News") + 
+  ylab("Count for Fake News") +
   labs(fill='Label') +
   facet_wrap(~ThePartyAffiliation,  ncol=1) + theme_fakeNews()
 
@@ -254,7 +254,7 @@ ggplot(df_10, aes(fill=Label, y=Count, x=SpeakerJobTitle)) +
 
 **Observation from Graph 2**
 
-1) Republican Party is more prone towards  spreading Fake News. 
+1) Republican Party is more prone towards  spreading Fake News.
 2) The Propotion of Half-True is more than False for almost all Speakers belonging to any party. This tells us that significane of some truth in any given statement is high.
 
 
@@ -307,12 +307,12 @@ df_12$SpeakerJobTitle = df_12$SpeakerJobTitle %>% recode(
                       "representative, representativej" = "Representative")
 
 
-ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) + 
+ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) +
   geom_bar(position="dodge", stat="identity") +
   xlab("X Asix") +
   ylab("Y Axis") +
-  labs(fill = "Speaker Job Title") + scale_fill_viridis(discrete=TRUE) + 
-  theme_fakeNews() + coord_polar() 
+  labs(fill = "Speaker Job Title") + scale_fill_viridis(discrete=TRUE) +
+  theme_fakeNews() + coord_polar()
 
 
 ```
@@ -324,11 +324,11 @@ ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) 
 
 2) President Candidate had Fake News only related to Immigration
 
-3) President didn't had Fake News related to topics like Military, Abortion, Debts, Jobs, Economy, 
+3) President didn't had Fake News related to topics like Military, Abortion, Debts, Jobs, Economy,
 
-4) Only Senators and President had fake news related to topics :- Fires, Iraq, Israel, Islam, Foreign Policy, Fedral Budge, Energy. 
+4) Only Senators and President had fake news related to topics :- Fires, Iraq, Israel, Islam, Foreign Policy, Fedral Budge, Energy.
 
-5) Education Subject had the highest count for fake news and the most selected topic by any speaker. 
+5) Education Subject had the highest count for fake news and the most selected topic by any speaker.
 
 2) The Propotion of Half-True is more than False for almost all Speakers belonging to any party. This tells us that significane of some truth in any given statement is high.
 
@@ -337,26 +337,26 @@ ggplot(df_12, aes(fill=df_12$SpeakerJobTitle, y=df_12$Count, x=df_12$Subjects)) 
 
 ```{r fig.width=13, fig.height=8}
 
-df_80 = fakeNews_df_transformed_false %>% 
-      group_by(fakeNews_df_transformed_false$StateInfo) %>% 
+df_80 = fakeNews_df_transformed_false %>%
+      group_by(fakeNews_df_transformed_false$StateInfo) %>%
       dplyr::summarise(n = n()) %>%
-      arrange(desc(n)) 
+      arrange(desc(n))
 
 t = c("State","NumberofFalseCounts")
 colnames(df_80)<- as.vector(t)
 
 df_81 = fakeNews_df_transformed_false %>%
-        group_by(fakeNews_df_transformed_false$StateInfo, fakeNews_df_transformed_false$Speaker) %>% 
+        group_by(fakeNews_df_transformed_false$StateInfo, fakeNews_df_transformed_false$Speaker) %>%
         dplyr::summarise(n = n()) %>%
-        arrange(desc(n)) 
+        arrange(desc(n))
 
 t = c("State"," UniqueSpeakerPerState","Count")
 colnames(df_81)<- as.vector(t)
 
-df_82 = df_81 %>% 
-      group_by(df_81$State) %>% 
+df_82 = df_81 %>%
+      group_by(df_81$State) %>%
       dplyr::summarise(n = n()) %>%
-      arrange(desc(n)) 
+      arrange(desc(n))
 
 
 t = c("State","NumberofSpeakers")
@@ -379,7 +379,7 @@ treemap::treemap(df_83,
 
 **Observation from the Graphs**
 
-Above Graph gives a clear idea for the count of Fake News in each State. The larger the rectangle, the state had more number of Fake News Spread. The color is mapped with the different number of speakers involved in that state to spread Fake News. 
+Above Graph gives a clear idea for the count of Fake News in each State. The larger the rectangle, the state had more number of Fake News Spread. The color is mapped with the different number of speakers involved in that state to spread Fake News.
 
 1) There were lot of states in the dataset which were labelled Unknown while pre-processing, which apparently are also spreading Fake News in high propotions
 
@@ -387,7 +387,7 @@ Above Graph gives a clear idea for the count of Fake News in each State. The lar
 
 3) Count of Fake News Spread is closely related with the different number of Speakers spreading the news. North Carolina, Tennessee, Colorado, Alaska etc, which share the same size, have least number of different speakers observed.
 
-4)  New York, Wisconsin and Florida have almost equal number of counts in spreading Fake News, which are compartively high when compare to other states. Also, Wisconsin and New York share the same count for number of speakers but the Florida has most number of different speakers among the 3, spreading the Fake News. 
+4)  New York, Wisconsin and Florida have almost equal number of counts in spreading Fake News, which are compartively high when compare to other states. Also, Wisconsin and New York share the same count for number of speakers but the Florida has most number of different speakers among the 3, spreading the Fake News.
 
 
 
@@ -396,30 +396,30 @@ Above Graph gives a clear idea for the count of Fake News in each State. The lar
 
 ```{r fig.width=25 , fig.height=10}
 
-# We have used Catograms to answer this question. Below is the step wise procedure for the same. 
-# 
-# Step 1) Columns Used Label, Venue, State. 
-# 
-# Step 2) Generate the count for Fake News spread using a particular Platform (Venue) in a particular region (StateInfo). 
-# 
+# We have used Catograms to answer this question. Below is the step wise procedure for the same.
+#
+# Step 1) Columns Used Label, Venue, State.
+#
+# Step 2) Generate the count for Fake News spread using a particular Platform (Venue) in a particular region (StateInfo).
+#
 # Step 3) Filtered the Unknown States from the dataset, by removing those rows. An important step here will be to make sure regions in both the dataframes are either lower case or upper case so that they can be matched.
-# 
+#
 # Step 4) For each state, obtained the Platform (Venue) with max fake news count. We also avoided the Platforms which had a count of 1 Fake News, which was not enough to validate if Platform is actually spreading fake news.
-# 
+#
 # Step 5)  Using the state dataframe of USA (imported form library), merged our dataframe (using left join), to get longitudes and latitudes of each states, so that they can plotted on the Catogram.
-# 
+#
 # Step 6) To make sure that Venues like "news conference, press conference", which were grouped together, are recoded with proper names, to make sure they have better names on the graph.
 
 
-df_51 = fakeNews_df_transformed_false %>% 
-        group_by(fakeNews_df_transformed_false$Venue, fakeNews_df_transformed_false$StateInfo) %>% 
+df_51 = fakeNews_df_transformed_false %>%
+        group_by(fakeNews_df_transformed_false$Venue, fakeNews_df_transformed_false$StateInfo) %>%
         dplyr::summarise(n = n()) %>%
-        arrange(desc(n)) 
+        arrange(desc(n))
 
 t = c("GroupedVenue","region","n")
 colnames(df_51)<- as.vector(t)
 
-df_52 = filter(df_51, region != "unknown") 
+df_52 = filter(df_51, region != "unknown")
 
 state <- map_data("state")
 state$region = tolower(state$region)
@@ -455,24 +455,24 @@ df_54$GroupedVenue=  df_54$GroupedVenue %>% recode(
                       )
 
 
-ggplot(data=df_54, aes(x=long, y=lat, fill=GroupedVenue, group=region)) + 
+ggplot(data=df_54, aes(x=long, y=lat, fill=GroupedVenue, group=region)) +
   geom_polygon(color = "white") + ggtitle("Most Popular Platforms to Spread Fake News State Wise") + xlab("Longitude") + ylab("latitude") +
-  theme_fakeNews() 
+  theme_fakeNews()
 
 ```
 
 
 **Observation from Graph**
 
-Below are the few names of venues (platforms) state wise which were used maximum times to spread fake news 
+Below are the few names of venues (platforms) state wise which were used maximum times to spread fake news
 
-1) Florida, Texas, California, Indiana, Maryland, Missouri, North Carolina mostly uses Press Release as the mediumn for fake news. 
+1) Florida, Texas, California, Indiana, Maryland, Missouri, North Carolina mostly uses Press Release as the mediumn for fake news.
 
-2) Georgia, Illinois, Pennsylvania, Virginia mostly uses Speeches as the medium for fake news. 
+2) Georgia, Illinois, Pennsylvania, Virginia mostly uses Speeches as the medium for fake news.
 
 3) Since the states map imported from library had more states than the states present in our dataframe, we obderved NA in the graph. We didn't had the information related to "most widely platforms used" to spreak fake news.
 
-4) Our Grouping of Venue Like Tweets/Tweet to Tweet might not be that accurate as we have used group_str to do the concatenation with the distance of similarity as 3 between words. This parameter can be manipualated for better efficiency. 
+4) Our Grouping of Venue Like Tweets/Tweet to Tweet might not be that accurate as we have used group_str to do the concatenation with the distance of similarity as 3 between words. This parameter can be manipualated for better efficiency.
 
 
 
@@ -482,16 +482,16 @@ Below are the few names of venues (platforms) state wise which were used maximum
 ```{r fig.width=17, fig.height=10 }
 
 # Step 1) Columns Used are :- Label, Venue (Platforms)
-# 
-# Step 2) Using the fake news dataframe, generate the count for Fake News spread using a particular Platform (Venue) 
-# 
+#
+# Step 2) Using the fake news dataframe, generate the count for Fake News spread using a particular Platform (Venue)
+#
 # Step 3) Pivot Wider the dataset to create columns for each unique value present in the Venue. Now, we will have a dataframe with each Region covering the count for the times the particular Platform/Venue was used to spread Fake News.
-# 
-# Step 4) Since, not all platforms/Venue were not used for each state, we selected a particular portion of dataframe (13 states and 10 Platforms/Venue) which had the least null values. 
-# 
+#
+# Step 4) Since, not all platforms/Venue were not used for each state, we selected a particular portion of dataframe (13 states and 10 Platforms/Venue) which had the least null values.
+#
 # Step 5) Then we imputed the null values with the mean of each row i.e. mean of platforms used for that region
-# 
-# Step 6) Recoded the column names for better understanding in graph and plotted them using the ggparcoord 
+#
+# Step 6) Recoded the column names for better understanding in graph and plotted them using the ggparcoord
 
 
 df_60 = df_52 %>%
@@ -503,7 +503,7 @@ df_61 = df_60 %>%
 #snapshot with almost no missing values
 df_62 = df_61[1:13, 1:10]
 
-df_63 = df_62 %>% replace(is.na(.), 0) %>% mutate(row_wise_mean = rowMeans(.[2:10])) 
+df_63 = df_62 %>% replace(is.na(.), 0) %>% mutate(row_wise_mean = rowMeans(.[2:10]))
 
 for (row in 1:nrow(df_63)) {
   for(col in 1:(ncol(df_63)-1)){
@@ -517,7 +517,7 @@ colnames(df_63)<- as.vector(t)
 ggparcoord(df_63, columns =2:10, scale = "globalminmax", groupColumn = 1)  + theme_fakeNews() + xlab("Platform Used for fake news") + ylab("Count for total number of times platform was used to spread Fake News")
 
 
-# df_63[,1:10]  %>% 
+# df_63[,1:10]  %>%
 #   parcoords(
 #     rownames = F
 #     , brushMode = "1D-axes"
@@ -538,15 +538,15 @@ ggparcoord(df_63, columns =2:10, scale = "globalminmax", groupColumn = 1)  + the
 
 **Observation from the Graphs**
 
-1) The count for OnlineInterview Medium for spreading Fake News was mostly less (<10) for most of the regions, except Wisconscin, Texas and Florida.
+1) The count for OnlineInterview Medium for spreading Fake News was mostly less (<10) for most of the regions, except Wisconsin, Texas and Florida.
 
 2) Most of the States, who have used Press Release for spreading Fake News, have also used News Release. We observed Positive Correlation between these two mediums for almost all the regions
 
 3) Similarly, we noticed negative correlation between News Release and TV Advertisement. Those states which have used News Release have a reduce count for the TV Advertisement
 
-4) We noticed wide range of differences in count between New York & Jersy for each above mentioned platform in graohw which suggest different political administration. 
+4) We noticed wide range of differences in count between New York & Jersey for each above mentioned platform in graohw which suggest different political administration.
 
-5) Even Tweeter, the most popular online social platform waas not used as the medium to spread Fake News for these states. 
+5) Even Twitter, the most popular online social platform waas not used as the medium to spread Fake News for these states.
 
 
 
@@ -574,7 +574,7 @@ df_21 = data.frame(wordsCount,LabelData,SpeakerJobTitle)
 df_22 = aggregate(df_21$wordsCount, by=list(df_21$SpeakerJobTitle,df_21$LabelData), FUN=sum)
 df_23 = filter(df_22, x>=100 & x<=1000)
 
-df_24 = df_23 %>% 
+df_24 = df_23 %>%
       mutate(newLabel = ifelse((Group.2=="false" | Group.2 =="barely-true" | Group.2=="half-true" | Group.2=="pants-fire"), "false","true"))
 
 
@@ -588,7 +588,7 @@ df_24$Group.1=  df_24$Group.1 %>% recode(
                 "cohost cnns crossfire"  = "Cohost Cnns",
                 "congress, congressman, congressman ny, congresswoman" = "Congress Official",
                 "consultant" = "Consultant",
-                "governor jersey" = "Governor Jersey", 
+                "governor jersey" = "Governor Jersey",
                 "host, house" = "House Host",
                 "house district" = "House District",
                 "house majority leader, house minority leader" = "House Majority Leader",
@@ -636,7 +636,7 @@ colnames(df_24)<- as.vector(t)
 
 
 ggplot(df_24, aes(x = Count, y = reorder(SpeakerJobTitle, Count))) +
-  geom_point(aes(colour = News_Label)) +   
+  geom_point(aes(colour = News_Label)) +  
   xlab("Count of Words in Statement") + ylab("Speaker Job Title") + theme_fakeNews()
 
 ```
@@ -655,7 +655,7 @@ df_fakeNews = read_csv("FakeNews_andrew.csv")
 ```
 
 
-**Question  7 : What are the states with maximum proportions of fake news and in what subject? Which subject has the most concentrated fake news?**
+**Question  7 : What are the proportions of fake news for each state?**
 
 
 ```{r fig.width=13, fig.height=30}
@@ -666,6 +666,7 @@ df_fakeNews = read_csv("FakeNews_andrew.csv")
 filt = c("Virginia director, Coalition to Stop Gun Violence", "Unknown", "unknown", "N/A", "Tex", "Russia", "Qatar", "China", "Virgiia", "PA - Pennsylvania", "None", "United Kingdom", "the United States")
 df_f3 <- df_fakeNews %>%
   filter(!(df_fakeNews$`State Info` %in% filt))
+#df$`State Info` <- with(df, ifelse(df$`State Info`=='Washington, D.C.', "Washington DC", df$`State Info`))
 
 df_f4 = df_f3 %>%
         group_by(df_f3$`State Info`, df_f3$`Label`) %>%
@@ -701,7 +702,21 @@ ggplot(aes(fill = factor(Label, levels = lvl), y = Count, x = reorder(StateInfo,
 
 ```
 
-**Question  8 : Most dishonest States and which Subjects**
+**Observation from the Graphs**
+
+1) All states generally report a variety of news ranging throughout the entire truth spectrum (from true to false).
+
+2) The majority of news reports have some level of truth in them, with the exception of Maine and Minnesota.
+
+3) All states follow roughly the same distribution of fake news (of course, with the exception of states with very few reports).
+
+4) Texas reported the most news while Tennessee, Montana, Rhode Island, and Mississippi have the fewest news reports out of all states.
+
+5) Out of all states with over 100 reports, Vermont was the only state that did not make any pants-on-fire reports (in other words, Vermont was the only state with over 100 reports that did not make any ridiculous claims).
+
+
+
+**Question  8 : What are the states with maximum proportions of fake news and in what subject?**
 
 ```{r fig.width=13}
 # Reference: https://stackoverflow.com/questions/32578082/r-how-to-replace-value-of-a-variable-conditionally
@@ -774,6 +789,18 @@ dff %>%
   theme_ben(ang=0)
 ```
 
+**Observation from the Graphs**
+Note: news reports that are labelled with pants-on-fire, false, barely-true, or half-true are considered not factual. Factual news are either mostly-true or true.
+
+1) Alabama is the most misinformative state and Conneticut is the most informative.
+
+2) Healthcare is the most misinformative subject out of all subjects in the states, with candidates-biography being the second most misinformative subject.
+
+3) The top 5 most misinformative states are either Southern or Midwestern, while the bottom 3 most misinformative states are located in the Eastern region of the United States
+
+4) Apart from the top 5 and bottom 3 states, there does not seem to be a particular region associated with misinformation spread by state
+
+
 **Question  9 : Distribution of Factual News with respect to state**
 
 ```{r}
@@ -793,8 +820,18 @@ ggplot(dfl, aes(x = Label, y = reorder(State.Info, -Label, median))) +
   labs(x = "Score", y = "State", title = "Distribution of Misinformation by State") +
   theme_ben2(ang=0)
 ```
+**Observation from the Graphs**
+Note: Each label was assigned a score, from 0 for pants-fire to 5 for true
 
-**Question  10 : The most controversial Subjects**
+1) Most states either have a very flat or bimodal distribution. This is consistent with the graph in question 7, where most states have news reports that range throughout the entire truth spectrum.
+
+2) The top 2 most honest states by median (Wyoming and North Dakota in this case) have most of their distribution around the score of 5.
+
+3) North Dakota is consistently true with their news, while Washington is consistently half-true with their news
+
+
+
+**Question  10 : Which subject has the most concentrated fake news?**
 
 ```{r fig.width=13}
 txt <- data_frame(Text = encoded$`Subject(s)`, Label=encoded$`Label`) %>%
@@ -837,6 +874,15 @@ prop %>%
   theme_ben(ang=0)
 
 ```
+**Observation from the Graphs**
+Note: a news report is considered fake news if it is either pants-on-fire, false, barely-true, or half-true
+
+1) Religion has the most misinformation spread about it
+
+2) Most of the controversial subjects present in question 8 are also present in this graph (and are therefor the top 50 most misinformative subjects)
+
+3) Like one would expect, most of the subjects present in this graph are related to social issues or political topics.
+
 
 
 **Question  11 : *Origin of Fake Vs Factual News with respect to Venue, Party & Job Title**
@@ -872,14 +918,22 @@ df$SpeakerJobTitle <- sapply(strsplit(df$SpeakerJobTitle, ","), function(x) x[1]
 
 
 df %>%
-  ggplot(aes(y=n, axis1=Venue, axis2=PartyAffiliation, axis3=SpeakerJobTitle)) +
+  ggplot(aes(y=n, axis1=Venue, axis3=Label, axis2=PartyAffiliation, axis4=SpeakerJobTitle)) +
   geom_alluvium(aes(fill = Label)) +
   geom_stratum(fill='black', color='white') +
   geom_label(stat = "stratum", size = 3, aes(label = after_stat(stratum))) +
-  scale_x_discrete(limits = c("Venue", "Party", "Job Title"), expand = c(.1, .1)) +
+  scale_x_discrete(limits = c("Venue", "Party", "Label", "Job Title"), expand = c(.1, .1)) +
   ggtitle("Truthfulness of News based on Origin") +
   xlab("Origin of News") +
   ylab("Frequency") +
   scale_fill_brewer(type = "qual", palette = "Set1", direction=-1) +
   theme_ben2(ang=0)
 ```
+**Observation from the Graphs**
+
+1) Fake news is present no matter what venue, party, or type of speaker it originates from
+
+2) For every type of venue, party, and job title, at least half of the news reports are not entirely true
+
+3) As seen in the Label column, most news reports in this entire graph are not entirely true
+
