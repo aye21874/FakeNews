@@ -108,7 +108,7 @@
 <!-- 3) We have also summarized each graph and in the process answered each relevalant question.  -->
 <!-- Note :- We have used the data from "FakeNews_Clean.csv" obtained after cleaning/processing the datasset. From this file, we have created 2 dataframes. One for the Fake News grouped by Labels ("false","half-true","pants-fire","barely-true") and the other by Factual News grouped by Label ("True", "stly-True").  -->
 <p><strong>Question 1: Which positions of authority lead to Fake &amp; Factual information? Which party tends to spread Fake News more? </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="1920" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="1920" /></p>
 <p><strong>Observation from Graph 1.1</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>President, Governor and Senators spread the most news in all categories of truthfulness.</p></li>
@@ -118,14 +118,14 @@
 <li><p>House Officials have had the least counts in spreading Fake or Factual News.</p></li>
 <li><p>The total count for pants-fire, false, barely-true, and half-true news is higher than the total count for mostly-true and true news, signifying that almost all job titles in the graph are associated with a high proportion of Fake News.</p></li>
 </ol>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="1920" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-27-1.png" width="1920" /></p>
 <p><strong>Observation from Graph 1.2</strong></p>
 <ol style="list-style-type: decimal">
 <li>The proportion of true news is higher than the proportion of false news for the Democrat and Independent parties, with the opposite case for the Republican party. This tells us that the Democrat and Independent parties are a little bit more reliable in delivery of truthful news.</li>
 <li>There is false news present for most speakers in every party, albeit at different proportions.</li>
 </ol>
 <p><strong>Question 2: What are the most selected topic/Subject picked by each Speaker which has the highest tendency of Spreading Fake News"</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="80%" /></p>
 <p><strong>Observation from Graph</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>Senators have spread the most Fake News with respect to every topic present in the graph</p></li>
@@ -135,7 +135,7 @@
 <li><p>Education has the highest count for fake news.</p></li>
 </ol>
 <p><strong>Question 3: Which states are spreading the most false news, also noting the number of different speakers involved in spreading Fake News?</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-30-1.png" width="80%" /></p>
 <p><strong>Observation from the Graphs</strong></p>
 <p>Above Graph gives a clear idea for the count of Fake News in each State. The larger the rectangle, the higher the number of Fake News was spread within the associated state. The color is mapped with the different number of speakers who spread fake news in the given state.</p>
 <ol style="list-style-type: decimal">
@@ -145,7 +145,7 @@
 <li><p>New York, Wisconsin and Florida have almost equal number of counts in spreading Fake News, which are comparatively high when compare to other states. Also, Wisconsin and New York share the same count for number of speakers but the Florida has highest number of different speakers among the three.</p></li>
 </ol>
 <p><strong>Question 4: Which method of communication has resulted in the most Fake News spread by state? </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-31-1.png" width="80%" /></p>
 <p><strong>Observation from Graph</strong></p>
 <p>Below are a few venues/platforms which were used the most to spread fake news per State.</p>
 <ol style="list-style-type: decimal">
@@ -155,7 +155,7 @@
 <li><p>Our grouping of the Venues (such as Tweets/Tweet to Tweet) might not be completely accurate since we used group_str to do the concatenation with the distance of similarity as 3 between words. This parameter can be manipulated for better efficiency.</p></li>
 </ol>
 <p><strong>Question 5: Correlations, Clusters &amp; Outliers observed for different Venues/Platforms in spreading Fake News for each State. </strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-32-1.png" width="80%" /></p>
 <p><strong>Observation from the Graphs</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>The count of Fake News spread for the venue OnlineInterview was less than 10 for all regions except Wisconsin, Texas and Florida.</p></li>
@@ -165,7 +165,7 @@
 <li><p>Surprisingly, Twitter had relatively low frequencies for each State despite being the most popular social media platform.</p></li>
 </ol>
 <p><strong>Question 6: Count of Words in a Statement in relation with its Label</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-33-1.png" width="80%" /></p>
 <p><strong>Observation from the Graphs</strong></p>
 <p>Note: the statements shown on the graph are between 100 and 1000 words.</p>
 <ol style="list-style-type: decimal">
@@ -173,7 +173,7 @@
 <li><p>For statements with over 300 words, there is a higher count of true statements compared to false statements.</p></li>
 </ol>
 <p><strong>Question 7: What are the proportions of fake news for each state?</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-35-1.png" width="80%" /></p>
 <p><strong>Observation from the Graphs</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>All states generally report a variety of news ranging throughout the entire truth spectrum (from true to false).</p></li>
@@ -183,7 +183,7 @@
 <li><p>Out of all states with over 100 reports, Vermont was the only state that did not make any pants-on-fire reports (in other words, Vermont was the only state with over 100 reports that did not make any ridiculous claims).</p></li>
 </ol>
 <p><strong>Question 8: What are the states with maximum proportions of fake news and in what subject?</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-36-1.png" width="80%" /></p>
 <p><strong>Observation from the Graphs</strong>
 Note: news reports that are labelled with pants-on-fire, false, barely-true, or half-true are considered not factual. Factual news are either mostly-true or true. The legend shows the order of truth values, which we will call the truth spectrum</p>
 <ol style="list-style-type: decimal">
@@ -193,7 +193,7 @@ Note: news reports that are labelled with pants-on-fire, false, barely-true, or 
 <li><p>Apart from the top 5 and bottom 3 states, there does not seem to be a particular region associated with misinformation spread by state</p></li>
 </ol>
 <p><strong>Question 9: Distribution of Factual News with respect to state</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="80%" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-38-1.png" width="80%" />
 <strong>Observation from the Graphs</strong>
 Note: Each label was assigned a score: 0 for “pants-on-fire”, 1 for “false”, 2 for “barely-true”, 3 for “half-true”, 4 for “mostly-true”, and 5 for “true”</p>
 <ol style="list-style-type: decimal">
@@ -202,7 +202,7 @@ Note: Each label was assigned a score: 0 for “pants-on-fire”, 1 for “false
 <li><p>North Dakota is consistently true with their news, while Washington is consistently half-true with their news</p></li>
 </ol>
 <p><strong>Question 10: Which subject has the most concentrated fake news?</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="80%" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-39-1.png" width="80%" />
 <strong>Observation from the Graphs</strong>
 Note: a news report is considered fake news if it is either pants-on-fire, false, barely-true, or half-true</p>
 <ol style="list-style-type: decimal">
@@ -211,7 +211,7 @@ Note: a news report is considered fake news if it is either pants-on-fire, false
 <li><p>Like one would expect, most of the subjects present in this graph are related to social issues or political topics.</p></li>
 </ol>
 <p><strong>Question 11: Origin of Fake Vs Factual News with respect to Venue, Party &amp; Job Title</strong></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="80%" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-40-1.png" width="80%" />
 <strong>Observation from the Graphs</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>Fake news is present no matter what venue, party, or type of speaker it originates from</p></li>

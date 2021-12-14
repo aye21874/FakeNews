@@ -33,7 +33,7 @@
   
 <link rel="prev" href="data-sources.html"/>
 <link rel="next" href="missing-values.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -103,10 +103,10 @@
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
 <p><strong>Below Steps were used for transforming the dataset</strong></p>
 <ol style="list-style-type: decimal">
-<li><p>The first step in the cleaning is to concatenate the 3 files. We merged the train, test and validate files into 1 file, fakeNewsClean.csv. We did this as the task was related to exploring data through visualization, and no modelling of data was required. The three files together will help us to have a better understanding of overall data distribution.</p></li>
-<li><p>In the process of generating new file, we also replaced ID Column with a new ID column consisting of numbers from 1 to number of rows in dataframe.</p></li>
+<li><p>The first step in the cleaning is to concatenate the 3 files. We merged the train, test and validate files into 1 file, fakeNewsClean.csv. We did this as the task was related to exploring data through visualization, and no modeling of data was required. The three files together will help us to have a better understanding of overall data distribution.</p></li>
+<li><p>In the process of generating new file, we also replaced ID Column with a new ID column consisting of numbers from 1 to number of rows in the dataframe.</p></li>
 <li><p>We saw most of the columns in the data had 2 rows missing. Taking a closer look, the <strong>rows with ID 5872, and 8180</strong> had most of the columns missing. So we removed those 2 rows from the dataset.</p></li>
-<li><p>For The columns Subject, SpeakerJobTitle, Speaker, Venue/Location, “The Party Affiliation”, we choose to replace missing values with a new category “Unknown”. This will be a new category helps us to understand where data was missing and how it is related to each questions.</p>
+<li><p>For The columns Subject, SpeakerJobTitle, Speaker, Venue/Location, and “The Party Affiliation”, we choose to replace missing values with a new category “Unknown”. This will be a new category helps us to understand where data was missing and how it is related to each questions.</p>
 <p><strong>Below is the Projection of Missing values for each column for each column in the dataset.</strong></p>
 <pre><code>##     Speaker Job Title            State Info        Venue/Location 
 ##                  3170                  2446                   110 
@@ -129,7 +129,7 @@
 ##                     0                     0                     0 
 ##  Pants on Fire Counts        Venue/Location 
 ##                     0                     0</code></pre></li>
-<li><p>For columns Venue, Subject and SpeakerJobTitle, StateInfo, PartyAffiliation we followed the below steps for pre-processing</p>
+<li><p>For columns Venue, Subject and SpeakerJobTitle, StateInfo, and PartyAffiliation we followed the below steps for pre-processing</p>
 <p>For each sentence in the following column :-</p>
 <pre><code> :- Converted each sentence  to lower case
  :- Removed all Punctuations
@@ -137,8 +137,8 @@
  :- split the sentences into words by delimiter = &quot; &quot;
  :- Removed Stop-Words  
  :- Concatenated the words to form the sentence</code></pre></li>
-<li><p>For Venue, Subject and SpeakerJobTitle, we also did an extra step to group similar words together. For example Venue like Tweet, Tweets, Tweet! were all grouped into 1 group using <strong>“group_str”</strong> function.</p></li>
-<li><p>Using all the steps we have created a new file, FakeNews_Clean.csv which we will be using for taking insides to our questions.</p></li>
+<li><p>For Venue, Subject and SpeakerJobTitle, we also did an extra step to group similar words together. For example, a venue like Tweet, Tweets, Tweet! were all grouped into 1 group using <strong>“group_str”</strong> function.</p></li>
+<li><p>Using all the steps we have created a new file, FakeNews_Clean.csv which we will be used for discovering insights to our questions.</p></li>
 </ol>
 
 </div>

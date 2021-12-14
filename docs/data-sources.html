@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -101,28 +101,28 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>In the beginning of the semester, we participated in the columbia data science hackathon event, where we recieved the LIAR dataset. The topic of Fake News Detection and the dataset intrigued us to find more insides on the relationship between dependendent and independent features. The Liar dataset have 12,800 human labelled short statements in various context related to politics and it is evaluated by the politifact.com editor for its truthfulness.</p>
+<p>In the beginning of the semester, we participated in the Columbia Data Science Hackathon 2021 event, where we recieved the LIAR dataset. The topic and dataset of Fake News Detection intrigued us to reveal more insights on the relationship between dependendent and independent features. The Liar dataset has 12,800 human labeled short statements in various contexts related to politics and is evaluated by politifact.com for its truthfulness. Politifact is a fact-checking organization that selects topics in the news and assigns a score for each news reports and its corresponding statement.</p>
 <p>Below are the some useful links</p>
 <ol style="list-style-type: decimal">
-<li><p>Columbia Data Science Hackathon Page ‘ 2021 - <a href="https://cdssatcu.com/2021-data-science-hackathon" class="uri">https://cdssatcu.com/2021-data-science-hackathon</a></p></li>
+<li><p>Columbia Data Science Hackathon Page (2021) - <a href="https://cdssatcu.com/2021-data-science-hackathon" class="uri">https://cdssatcu.com/2021-data-science-hackathon</a></p></li>
 <li><p>Actual Dataset - <a href="https://www.cs.ucsb.edu/~william/data/liar_dataset.zip" class="uri">https://www.cs.ucsb.edu/~william/data/liar_dataset.zip</a></p></li>
 <li><p>Dataset Evaluation by Politifact.com - <a href="https://www.politifact.com/" class="uri">https://www.politifact.com/</a></p></li>
 </ol>
 <p><strong>Below is the description of the features present in the dataset.</strong></p>
 <p><strong>1) ID</strong> - Unique Row ID associated for each Statement.</p>
-<p><strong>2) Label</strong> - Statements were “True”, “False”, “Barely-True”, “Half-True”, “Mostly-True”, “Pants-Fire”.</p>
+<p><strong>2) Label</strong> - Truthfulness of statements: “True”, “False”, “Barely-True”, “Half-True”, “Mostly-True”, “Pants-Fire”.</p>
 <p><strong>3) Statement</strong> - Sentences of words varying between 5 to 5000.</p>
-<p><strong>4) Subject</strong> - The topic related to Statement. Like HealthCare, Jobs Etc.</p>
+<p><strong>4) Subject</strong> - The topic related to Statement (ex: healthcare, jobs, economy, etc).</p>
 <p><strong>5) Speaker</strong> - The person who has given the statement.</p>
-<p><strong>6) SpeakerJobTitle</strong> - The title associated with the speaker. Like Preisdent, Governor etc.</p>
+<p><strong>6) SpeakerJobTitle</strong> - The job title associated with the speaker (ex: president, attorney, etc).</p>
 <p><strong>7) StateInfo</strong> - The state where the statement was made.</p>
-<p><strong>8) Party Affiliated</strong> - The party the speaker belong to. Like Republican, Democratic, Independent.</p>
+<p><strong>8) Party Affiliated</strong> - The party the speaker belongs to (ex: republican, democrat, independent, etc).</p>
 <p><strong>9) Barely True Counts</strong> - The accumulation of Barely True counts associated with Speaker.</p>
 <p><strong>10) False Counts</strong> - The accumulation of False Counts associated with Speaker.</p>
 <p><strong>11) Half False Counts</strong> - The accumulation of Half False Counts associated with Speaker.</p>
 <p><strong>12) Mostly True Counts</strong> - The accumulation of Mostly True Counts associated with Speaker.</p>
 <p><strong>13) Pants Fire Counts</strong> - The accumulation of Pants Fire Counts associated with Speaker.</p>
-<p><strong>14) Venue/Location</strong> - The Medium through which News was Spread. Like Television, Radio etc.</p>
+<p><strong>14) Venue/Location</strong> - The medium through which news was Spread (ex: television, radio, news press, speech, etc)</p>
 
 </div>
             </section>
