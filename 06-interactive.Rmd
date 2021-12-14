@@ -21,9 +21,18 @@
 
 ```
 
-For the Interactive Portion, we have 
+For the Interactive Portion, we have **tried building a game** for a user, where he sees a statement and **guess if it's True, False, Barely-True, Mostly-Ture, Pants On Fire.** 
 
-Below are the list of 10 Speakers who have that highest statement counts out of all people. We have made an interactive game to get to know more about the data in a fun way. 
+Step 1) The user is expected to select a speaker from the list of top 10 Speaker (filtered by the number of statmenets in csv) displayed below.
+
+Step 2) The user sees a dynamic graph for the Party Affiliation of the Speaker, and it's history in spreading Fake Vs Factual News. **Please note**, the  user is expected to click on the statement where The Party Name is Shown. 
+
+Step 3) Then user sees the history for the speaker in terms of Fake Vs Factual statements made by the speaker in the past. **Please note**, the user is again expected to click on the statement for the next step. 
+
+Step 4) Now the user is presented with a **random statment** made by the speaker at a particular location. The user has to judge whether the statement is True, Mostly True, Barely True,  Half True, False, or Pants on Fire using the dropdown list given. The user is alerted as to whether he chose the correct option and the game resets.
+
+User can continue to play endless games in the given above order.
+
 
 
 <iframe src="Demo.html" width="600" height="600"></iframe>
