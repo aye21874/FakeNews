@@ -23,9 +23,9 @@
 
 For the Interactive Portion, we have **tried building a game** for a user, where he sees a statement and **guess if it's True, False, Barely-True, Mostly-Ture, Pants On Fire.** 
 
-Step 1) The user is expected to select a speaker from the list of top 10 Speaker (filtered by the number of statmenets in csv) displayed below.
+Step 1) The user is expected to select a speaker from the list of top 10 Speaker (filtered by the number of statements in csv) displayed below.
 
-Step 2) The user sees a dynamic graph for the Party Affiliation of the Speaker, and it's history in spreading Fake Vs Factual News. **Please note**, the  user is expected to click on the statement where The Party Name is Shown. 
+Step 2) The user sees a dynamic graph for the Party Affiliation of the Speaker, and its history in spreading Fake Vs Factual News. **Please note**, the user is expected to click on the statement where The Party Name is Shown. 
 
 Step 3) Then user sees the history for the speaker in terms of Fake Vs Factual statements made by the speaker in the past. **Please note**, the user is again expected to click on the statement for the next step. 
 
