@@ -124,7 +124,10 @@
 		.attr("id","speakerparty")	
         .style("font-size", "16px") 
         .style("text-decoration","")  
-        .text(chosen['speaker']+" belongs to " +chosen['party']+" party, whose history is:" );
+        .text(chosen['speaker']+" belongs to " +chosen['party']+" party, whose history is:" )
+        .append("tspan")
+        .attr("font-weight",1000)
+        .text("<----(click here for next steps)")
 		
 		
 		d3.select("#speakerparty")
@@ -238,7 +241,11 @@
 				.attr("id","speakerparty")	
 				.style("font-size", "16px") 
 				.style("text-decoration","")  
-				.text(chosen['speaker']+"'s past history of statments are: " );
+				.text(chosen['speaker']+"'s past history of statments are:" )
+				.append("tspan")
+        .attr("font-weight",1000)
+        .text("<----(click here for next steps)")
+
 				
 			d3.select("#speakerparty")
 			.on("click", function(){
@@ -296,7 +303,7 @@
 		//d3.select("body").append("div")
 		//d3.select("div").html("<button id =\"wrapper\" class=\"center\">Click Me!</button>")
 		
-		var names = ["Barely True", "False", "Half True","Mostly True","Pants on Fire"];
+		var names = ["Barely True", "False", "Half True","Mostly True","Pants on Fire","TRUE"];
 		d3.select("body").append("div")
 		var select = d3.select('div')
 		  .append('select')
@@ -310,7 +317,7 @@
 		
 		function onchange(){
 		
-			var dict = {"Barely True":"barely-true", "False":"FALSE", "Half True" : "half-true","Mostly True":"mostly-true","Pants on Fire":"pants-fire"};
+			var dict = {"Barely True":"barely-true", "False":"FALSE", "Half True" : "half-true","Mostly True":"mostly-true","Pants on Fire":"pants-fire","TRUE":"TRUE"};
 			selectValue = d3.select('select').property('value')
 			console.log(dict[selectValue])
 			if(dict[selectValue] == item['label']){

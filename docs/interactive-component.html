@@ -33,7 +33,7 @@
   
 <link rel="prev" href="results.html"/>
 <link rel="next" href="conclusion.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -101,8 +101,12 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<p>For the Interactive Portion, we have</p>
-<p>Below are the list of 10 Speakers who have that highest statement counts out of all people. We have made an interactive game to get to know more about the data in a fun way.</p>
+<p>For the Interactive Portion, we have <strong>tried building a game</strong> for a user, where he sees a statement and <strong>guess if it’s True, False, Barely-True, Mostly-Ture, Pants On Fire.</strong></p>
+<p>Step 1) The user is expected to select a speaker from the list of top 10 Speaker (filtered by the number of statmenets in csv) displayed below.</p>
+<p>Step 2) The user sees a dynamic graph for the Party Affiliation of the Speaker, and it’s history in spreading Fake Vs Factual News. <strong>Please note</strong>, the user is expected to click on the statement where The Party Name is Shown.</p>
+<p>Step 3) Then user sees the history for the speaker in terms of Fake Vs Factual statements made by the speaker in the past. <strong>Please note</strong>, the user is again expected to click on the statement for the next step.</p>
+<p>Step 4) Now the user is presented with a <strong>random statment</strong> made by the speaker at a particular location. The user has to judge whether the statement is True, Mostly True, Barely True, Half True, False, or Pants on Fire using the dropdown list given. The user is alerted as to whether he chose the correct option and the game resets.</p>
+<p>User can continue to play endless games in the given above order.</p>
 <iframe src="Demo.html" width="600" height="600">
 </iframe>
 
