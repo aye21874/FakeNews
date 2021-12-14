@@ -1,11 +1,5 @@
 # Interactive component
 
----
-title: Habits
-author: John Doe
-date: March 22, 2005
-output: html_document
----
 
 ```{r}
 
@@ -26,5 +20,10 @@ output: html_document
 #final = inner_join(pow,fakenews_1,by = c("Speaker","The.Party.Affiliation"))
 
 ```
+
+For the Interactive Portion, we have 
+
+Below are the list of 10 Speakers who have that highest statement counts out of all people. We have made an interactive game to get to know more about the data in a fun way. 
+
 
 <iframe src="Demo.html" width="600" height="600"></iframe>
