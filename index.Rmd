@@ -50,3 +50,9 @@ Overall, through visualization, we have tried to find out the most reliable meth
 2) "Liar, Liar Pants on Fire": A New Benchmark Dataset for Fake News Detection - William Yang Wang
 
 3) John A. Bernau, PHD - Research Blog on Text Analysis
+
+4) Few links that we used for Interactivity Game :-
+  A: http://bl.ocks.org/jfreels/6734823
+  B: https://www.d3-graph-gallery.com/graph/interactivity_button.html
+  C: http://learnjsdata.com/read_data.html
+

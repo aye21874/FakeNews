@@ -164,7 +164,10 @@ cleanGroupFunction <- function(inputColumn, newColumn ) {
 
 ```{r}
 
-# #It takes 10 min 
+# It takes 60 min to run this section, hence commented out. We have generated a new file FakeNews_Clean.csv. In case you need to regenerate,
+# uncomment this section of code. 
+
+
 # newColumn = cleanGroupFunction(fakeNews_df_transformed$`Venue/Location`)
 # for(i in range((length(newColumn)+1)):11376)
 # {
@@ -172,7 +175,7 @@ cleanGroupFunction <- function(inputColumn, newColumn ) {
 # }
 # fakeNews_df_transformed["Venue"]= newColumn[1:11376]
 # 
-# #It takes 10 min
+
 # newColumn = cleanGroupFunction(fakeNews_df_transformed$`Subject(s)`)
 # for(i in range((length(newColumn)+1)):11376)
 # {
@@ -180,7 +183,7 @@ cleanGroupFunction <- function(inputColumn, newColumn ) {
 # }
 # fakeNews_df_transformed["Subject"]= newColumn[1:11376]
 # 
-# #It takes 10 min
+
 # newColumn = cleanGroupFunction(fakeNews_df_transformed$`Speaker Job Title`)
 # for(i in range((length(newColumn)+1)):11376)
 # {
