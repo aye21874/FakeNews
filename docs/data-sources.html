@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | Habits</title>
-  <meta name="description" content="Chapter 2 Data sources | Habits" />
+  <title>Chapter 2 Data sources | Exploring Fake News through LIAR dataset</title>
+  <meta name="description" content="Chapter 2 Data sources | Exploring Fake News through LIAR dataset" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | Habits" />
+  <meta property="og:title" content="Chapter 2 Data sources | Exploring Fake News through LIAR dataset" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | Habits" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | Exploring Fake News through LIAR dataset" />
   
   
   
 
-<meta name="author" content="John Doe" />
+<meta name="author" content="Andrew Schaefer, Angad Nandwani and Ayush Sinha" />
 
 
-<meta name="date" content="2005-03-22" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -91,7 +91,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Habits</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Fake News through LIAR dataset</a>
           </h1>
         </div>
 
@@ -102,7 +102,11 @@
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>In the beginning of the semester, we participated in the Columbia Data Science Hackathon 2021 event, where we recieved the LIAR dataset. The topic and dataset of Fake News Detection intrigued us to reveal more insights on the relationship between dependendent and independent features. The Liar dataset has 12,800 human labeled short statements in various contexts related to politics and is evaluated by politifact.com for its truthfulness.</p>
-<p>Politifact is a fact-checking non-profit organization. Everyday, journalists at Politifact reads transcripts, speeches, news stories, press releases, and campaign brochures.</p>
+<p><strong>How the data is gathered</strong></p>
+<p>Politifact is a fact-checking non-profit organization. Everyday, journalists at Politifact reads transcripts, speeches, news stories, press releases, and campaign brochures. They also get statements from the television, social media, and suggestions from email. They selectively pick claims to fact-check based on the significance of the claim and its transmissibility (whether the claim be passed on easily). Fact-checking itself involves searching through Google, searching databases, and a consulting experts.</p>
+<p><strong>Issues</strong></p>
+<p>The columns of the data is quite messy. For instance, in “State Info”, there are other countries present besides the US such as China and Qatar. Subjects are made up of permutations of different spellings, which will make it difficult to visualise based on statement topics. There is also plenty of missing data, which will be investigated in Chapter 4: Missing Values of this bookdown.</p>
+<p>Another challenge of this dataset is the level of detail, particularly for columns “Subject(s)” and “Venue”. Subjects often have multiple keywords associated with it; rarely will two rows share the exact same subjects. Venue is also specific, though not as specific as Subject(s). Ideally we can find a way to group these specific terms to make our analysis visually appealing without losing too much detail. For instance, we can categorise all political topics under “Politics”, but by doing so we lose much low-level details. This is a challenge we will have to tread through carefully.</p>
 <p>Below are the some useful links</p>
 <ol style="list-style-type: decimal">
 <li><p>Columbia Data Science Hackathon Page (2021) - <a href="https://cdssatcu.com/2021-data-science-hackathon" class="uri">https://cdssatcu.com/2021-data-science-hackathon</a></p></li>

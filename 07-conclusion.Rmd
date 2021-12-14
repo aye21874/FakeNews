@@ -2,11 +2,15 @@
 
 Overall, the visualizations demonstrate that every state, speaker, and party has its fault in regards to providing factual information. Some parties or States may have a higher proportion of true news compared to other parties or States but the fact is that misinformation is still present no matter what State, speaker, subject, or venue it originates from.
 
+**Why is there so much misinformation?**
+
 Some of the causes for this issue could be due to the complexity of information available today. Some political topics can be so complex that it becomes hard to portray over a statement. For instance, most people would not understand the deep complexities of the American healthcare system. Social issues such as LGBTQ and abortion are very personal to people, which may cause the delivery of information related to these topics to be tinted with a personal lens. While this isn't wrong (we would not want to invalidate anyone's feelings), those who verify this kind of information may be lacking the perspectives of others and misinterpret information related to these subjects. Other topics such as religion has many meanings and portrayals, so of course some sources may misconstrue its representations.
 
 While venues such as social media and television makes the delivery of information more convenient, there are also constraints we need to consider. Unless we are producing documentaries or teaching the subject professionally, it is difficult to briefly and accurately portray the statement, especially for outlets where people would expect brevity. For example, consider speeches which often have a time constraints or the word limit of a tweet.
 
 The issue with misinformation today should be a collaborative effort to verify sources to ensure that correct information is being delivered through most if not all sources. Everyone should be taking responsibility.
 
+
+**Improvements**
 
 Improvements for this project may include using a better natural language processing algorithm. It was difficult to group the subjects because each entry in the “Subjects” column was made up of permutations of multiple subjects. Even after splitting the permutations and preprocessing the individual words, there were too many subjects to visualise in a pleasing way. This could be improved on by grouping the subjects into a more broader context (like grouping taxes and government into political). For states, some graphs would have benefited by grouping them into regions (midwestern, southern, west, and east).
