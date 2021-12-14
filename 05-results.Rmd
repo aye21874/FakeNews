@@ -917,11 +917,11 @@ df$SpeakerJobTitle <- sapply(strsplit(df$SpeakerJobTitle, ","), function(x) x[1]
 
 
 df %>%
-  ggplot(aes(y=n, axis1=Venue, axis3=Label, axis2=PartyAffiliation, axis4=SpeakerJobTitle)) +
+  ggplot(aes(y=n, axis1=Venue, axis2=Label, axis3=PartyAffiliation, axis4=SpeakerJobTitle)) +
   geom_alluvium(aes(fill = Label)) +
   geom_stratum(fill='black', color='white') +
   geom_label(stat = "stratum", size = 3, aes(label = after_stat(stratum))) +
-  scale_x_discrete(limits = c("Venue", "Party", "Label", "Job Title"), expand = c(.1, .1)) +
+  scale_x_discrete(limits = c("Venue", "Label", "Party", "Job Title"), expand = c(.1, .1)) +
   ggtitle("Truthfulness of News based on Origin") +
   xlab("Origin of News") +
   ylab("Frequency") +
